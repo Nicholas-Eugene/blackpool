@@ -1,0 +1,260 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800&display=swap");
+
+
+* {
+    font-family: "Poppins", sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-transform: capitalize;
+    outline: none; border: none;
+    text-decoration: none;
+    transition: all .2s linear;
+}
+
+html{
+    font-size: 62.5%;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+}
+
+/* packages */
+
+.book{
+    margin: 2%;
+    margin-top: 8%;
+}
+
+.book .box-container{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    grid: 5rem;
+    margin-top: 2%;
+    justify-content: center;
+    align-items: center;
+}
+
+.book .box-container .right{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    grid: 5rem;
+    margin-left: 10%;
+}
+
+.book .box-container .box{
+    border-radius: .3rem;
+    background-color: #4d84e2;
+    width: 6rem;
+    padding: 4rem 0;
+    cursor: pointer;
+    color: white;
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 600;
+}
+
+h1{
+    text-align: center;
+    font-size: 2rem;
+}
+
+.payment{
+    display: flex;
+    margin-top: 1.5rem;
+    gap: 65%;
+    justify-content: center;
+}
+
+hr {
+    display: block;
+    margin-top: 10rem;
+    overflow: hidden;
+    border-style: inset;
+    border-width: 1px;
+}
+
+.one {
+    margin-top: 0;
+    margin-bottom: 6rem;
+}
+
+.desc{
+    margin-bottom: 1rem;
+}
+
+.desc p{
+    font-size: 1.3rem;
+}
+
+.payment p{
+    font-size: 1.7rem;
+    font-weight: 600;
+    align-self: center;
+}
+
+.btn{
+    display: inline-block;
+    margin-top: 1rem;
+    background: #5995fd;
+    color: white;
+    padding: .8rem 3rem;
+    cursor: pointer;
+    font-size: 1.7rem;
+    border-radius: 5px;
+}
+
+.btn:hover{
+    background: #4d84e2;
+}
+
+/* media queries */
+
+@media (max-width:1200px){
+    html{
+        font-size: 55%;
+    }
+}
+
+@media (max-width:991px){
+    .pack{
+        margin: 5%;
+        margin-top: 20%;
+    }
+
+    .payment{
+        gap: 50%;
+    }
+
+    .book{
+        margin-top: 13%;
+    }
+}
+
+@media (max-width:600px){
+    .book .box-container .right{
+        gap: 1rem;
+        grid: .2rem;
+        margin-left: 5%;
+    }
+
+    .book .box-container{
+        gap: 1rem;
+        grid: .2rem;
+    }
+
+    .book .box-container .box{
+        width: 6rem;
+        padding: 4rem 0;
+        font-size: 2rem;
+    }
+
+    .book{
+        margin-top: 15%;
+    }
+}
+
+@media (max-width:550px){
+    .book .box-container .right{
+        gap: 1rem;
+        grid: .2rem;
+        margin-left: 4%;
+    }
+
+    .book .box-container .box{
+        width: 5rem;
+        padding: 3rem 0;
+        font-size: 2rem;
+    }
+
+    .book{
+        margin-top: 17%;
+    }
+
+    .payment{
+        gap: 40%;
+    }
+}
+
+@media (max-width:465px){
+    html{
+        font-size: 50%;
+    }
+
+    .book .box-container .right{
+        gap: 1rem;
+        grid: .2rem;
+        margin-left: 4%;
+    }
+
+    .book .box-container .box{
+        width: 5rem;
+        padding: 3rem 0;
+        font-size: 2rem;
+    }
+
+    .book{
+        margin-top: 17%;
+    }
+
+    .payment{
+        gap: 40%;
+    }
+}
+
+@media (max-width:425px){
+
+    .book .box-container .right{
+        gap: .5rem;
+        grid: .2rem;
+        margin-left: 3%;
+    }
+
+    .book .box-container{
+        gap: .5rem;
+        grid: .2rem;
+    }
+
+    .book .box-container .box{
+        width: 5rem;
+        padding: 3rem 0;
+        font-size: 2rem;
+    }
+
+    .book{
+        margin-top: 20%;
+    }
+
+    .payment{
+        gap: 30%;
+    }
+}
+
+@media (max-width:375px){
+
+    .book .box-container .right{
+        gap: .5rem;
+        grid: .2rem;
+        margin-left: 4%;
+    }
+
+    .book .box-container{
+        gap: .5rem;
+        grid: .2rem;
+    }
+
+    .book .box-container .box{
+        width: 4.5rem;
+        padding: 2.5rem 0;
+        font-size: 2rem;
+    }
+
+    .book{
+        margin-top: 20%;
+    }
+
+    .payment{
+        gap: 30%;
+    }
+}
