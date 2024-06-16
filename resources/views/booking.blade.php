@@ -1,93 +1,168 @@
 @extends('main')
 
 @section('css')
-    <link rel="stylesheet" href="{{url('css/booking.css')}}" />
+    <link rel="stylesheet" href="{{ url('css/booking.css') }}" />
+    <style>
+        .floating-message {
+            position: fixed;
+            top: 15%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 20px 40px;
+            background-color: #f0f0f0;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            display: none;
+            z-index: 1000;
+            font-size: 18px;
+            text-align: center;
+            max-width: 60%;
+        }
+
+        .floating-message.success {
+            background-color: #d4edda;
+            border-color: #c3e6cb;
+        }
+
+        .floating-message.error {
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+        }
+    </style>
 @stop
 
 @section('content')
 <section class="book">
-    <div class="desc">
-        <h1>{{ $billiard->name }}</h1>
-    </div>
     <hr class="one">
 
     <div class="box-container">
-        <div id="1" class="box" onclick="clickTable(this)">01</div>
-        <div id="2" class="box" onclick="clickTable(this)">02</div>
-        <div id="3" class="box" onclick="clickTable(this)">03</div>
-        <div id="4" class="box" onclick="clickTable(this)">04</div>
-
-        <div class="right">
-            <div id="9" class="box" onclick="clickTable(this)">09</div>
-            <div id="10" class="box" onclick="clickTable(this)">10</div>
-            <div id="11" class="box" onclick="clickTable(this)">11</div>
-            <div id="12" class="box" onclick="clickTable(this)">12</div>
-        </div>
-    </div>
-
-    <div class="box-container">
-        <div id="5" class="box" onclick="clickTable(this)">05</div>
-        <div id="6" class="box" onclick="clickTable(this)">06</div>
-        <div id="7" class="box" onclick="clickTable(this)">07</div>
-        <div id="8" class="box" onclick="clickTable(this)">08</div>
-
-        <div class="right">
-            <div id="13" class="box" onclick="clickTable(this)">13</div>
-            <div id="14" class="box" onclick="clickTable(this)">14</div>
-            <div id="15" class="box" onclick="clickTable(this)">15</div>
-            <div id="16" class="box" onclick="clickTable(this)">16</div>
-        </div>
+        @foreach ($tables->sortBy('id') as $table)
+            @php
+                // Check if all times are booked
+                $allTimesBooked = count($table->booked_times) >= 11; // Assuming 11 time slots
+            @endphp
+            <div id="table-{{ $table->id }}" 
+                 class="box {{ $table->is_full || $allTimesBooked ? 'booked' : '' }}"
+                 style="{{ $table->is_full || $allTimesBooked ? 'background-color: gray;' : '' }}"
+                 {{ $table->is_full || $allTimesBooked ? '' : 'onclick=clickTable(this)' }}>
+                {{ sprintf('%02d', $table->id) }}
+            </div>
+        @endforeach
     </div>
 
     <hr>
-    <div class="payment">
-        @php
-            $blPriceHour = 0;
-        @endphp
-        <form action="/addToCart/{{ $billiard->id }}" method="POST" enctype="multipart/form-data">
-            {{ csrf_field() }}
-            <div class="desc">
-                <p>Date: {{ now()->format('Y-m-d') }}</p>
-                <p>Time: <input class="input-time" type="time" required name="time"/></p>
+    <div class="payment scrollable-container">
+    <form action="{{ route('booking.store') }}" method="POST">
+        @csrf
+        <div class="desc">
+            <p>Select Time Slot(s):</p>
+            <div class="scrollable-options" id="timeSlots">
+                @for ($hour = 11; $hour <= 21; $hour++)
+                    <label>
+                        <input type="checkbox" name="start_times[]" value="{{ str_pad($hour, 2, '0', STR_PAD_LEFT) }}:00">
+                        {{ str_pad($hour, 2, '0', STR_PAD_LEFT) }}:00 - {{ str_pad($hour + 1, 2, '0', STR_PAD_LEFT) }}:00
+                    </label><br>
+                @endfor
             </div>
-            <p id="totalprice">Total: Rp. {{ $blPriceHour }}</p>
-            <input type="hidden" value="0" id="ttlprice" name="totalprice"/>
-            <input type="hidden" value="0" id="ttltable" name="totaltable"/>
-            <input type="hidden" value=" " id="tblnumber" name="tablenumber"/>
-            <input type="submit" value="Checkout" class="btn"/>
-        </form>
+        </div>
+        <p id="totalprice">Total: Rp. 0</p>
+        <input type="hidden" value="0" id="ttlprice" name="totalprice"/>
+        <input type="hidden" id="tblnumber" name="table_ids"/>
+        <input type="submit" value="Checkout" class="btn"/>
+    </form>
     </div>
 </section>
 
+<div id="floatingMessage" class="floating-message"></div>
+
 <script>
-    var pertama = false;
+    let selectedTable = null;
+    const pricePerHour = 60000;
+
+    function showMessage(message, type) {
+        const floatingMessage = document.getElementById('floatingMessage');
+        floatingMessage.innerHTML = message;
+        floatingMessage.className = 'floating-message ' + type;
+        floatingMessage.style.display = 'block';
+        setTimeout(() => {
+            floatingMessage.style.display = 'none';
+        }, 3000);
+    }
+
     function clickTable(element) {
-        let totalprice = document.getElementById("totalprice");
-        let ttlprice = document.getElementById("ttlprice");
-        let ttltable = document.getElementById("ttltable");
+        if (element.classList.contains('booked')) {
+            return;
+        }
+
+        const totalprice = document.getElementById("totalprice");
+        const ttlprice = document.getElementById("ttlprice");
         let tblnumber = document.getElementById("tblnumber");
-        var a = parseInt(ttlprice.value);
-        var b = parseInt(ttltable.value);
-        if(element.style.backgroundColor == "green"){
-            element.style.backgroundColor = "#5084e4";
-            var idYangDihapus = element.id + " ";
-            var idBaru = tblnumber.value.replace(idYangDihapus , "");
-            a -= {{$billiard->priceperhour}};
-            b -= 1;
-            ttlprice.value =  a;
-            ttltable.value =  b;
-            tblnumber.value =  idBaru;
-            totalprice.innerHTML = "Total: Rp. " + ttlprice.value;
-        }else{
+        const checkboxes = document.querySelectorAll('.scrollable-options input[type="checkbox"]');
+        
+        const tableId = element.id.replace('table-', '');
+
+        if (selectedTable && selectedTable !== element) {
+            selectedTable.style.backgroundColor = "#5084e4";
+            selectedTable = null;
+            ttlprice.value = 0;
+            tblnumber.value = '';
+            totalprice.innerHTML = "Total: Rp. 0";
+            checkboxes.forEach(checkbox => {
+                checkbox.disabled = false;
+                checkbox.checked = false;
+            });
+        }
+
+        if (element !== selectedTable) {
             element.style.backgroundColor = "green";
-            var idTable = element.id;
-            a += {{$billiard->priceperhour}};
-            b += 1;
-            ttlprice.value =  a;
-            ttltable.value =  b;
-            tblnumber.value += idTable + " ";
-            totalprice.innerHTML = "Total: Rp. " + ttlprice.value;
+            selectedTable = element;
+            tblnumber.value = tableId;
+            calculateTotal();
+
+            fetch(`/tables/${tableId}/bookings`)
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data); // Ensure this logs the correct booking data
+                    let allDisabled = true;
+                    checkboxes.forEach(checkbox => {
+                        const checkboxHour = checkbox.value.split(':')[0];
+                        const isBooked = data.bookings.some(bookedTime => bookedTime.startsWith(checkboxHour));
+                        checkbox.disabled = isBooked;
+                        if (!isBooked) {
+                            allDisabled = false;
+                        }
+                    });
+
+                    if (allDisabled) {
+                        element.classList.add('booked');
+                        element.style.backgroundColor = 'gray';
+                        element.removeAttribute('onclick');
+                    }
+                });
+
+            // Add event listener to checkboxes for recalculating total
+            checkboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', calculateTotal);
+            });
         }
     }
+
+    function calculateTotal() {
+        const checkboxes = document.querySelectorAll('.scrollable-options input[type="checkbox"]:checked');
+        const totalHours = checkboxes.length;
+        const totalAmount = totalHours * pricePerHour;
+        
+        let ttlprice = document.getElementById("ttlprice");
+        let totalprice = document.getElementById("totalprice");
+
+        ttlprice.value = totalAmount;
+        totalprice.innerHTML = "Total: Rp. " + totalAmount;
+    }
+
+    @if (session('success'))
+        showMessage('{{ session('success') }}', 'success');
+    @elseif ($errors->any())
+        showMessage('{{ $errors->first() }}', 'error');
+    @endif
 </script>
 @stop

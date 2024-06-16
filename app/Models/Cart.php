@@ -9,23 +9,28 @@ class Cart extends Model
 {
     use HasFactory;
 
-    protected $table = 'cart';
+    protected $table = 'carts';
 
     protected $fillable = [
-        'billiard_id',
+        'table_id',
         'user_id',
         'date',
         'time',
         'totalprice',
-        'tablenumber',
-        'totaltables'
-	];
+        'status',
+    ];
 
-    public function billiard(){
-		return $this->belongsTo(Billiard::class);
-	}
+    protected $casts = [
+        'time' => 'array', // Cast time as array
+    ];
 
-    public function user(){
-		return $this->belongsTo(User::class);
-	}
+    public function table()
+    {
+        return $this->belongsTo(Table::class, 'table_id')->withDefault();
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }

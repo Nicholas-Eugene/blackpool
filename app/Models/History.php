@@ -8,24 +8,26 @@ use Illuminate\Database\Eloquent\Model;
 class History extends Model
 {
     use HasFactory;
+
     protected $table = 'history';
 
     protected $fillable = [
-        'billiard_id',
+        'table_id',
         'user_id',
-        'date',
+        'booking_start',
         'time',
-        'totalprice',
-        'tablenumber',
-        'totaltables',
-        'paymentmethod'
-	];
+        'total_price',
+        'payment_method'
+    ];
 
-    public function user(){
-		return $this->belongsTo(User::class);
-	}
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 
-    public function billiard(){
-		return $this->belongsTo(Billiard::class);
-	}
+    public function table()
+    {
+        return $this->belongsTo(Table::class);
+    }
 }
+?>

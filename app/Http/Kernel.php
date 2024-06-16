@@ -65,4 +65,13 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'security' => \App\Http\Middleware\Security::class,
     ];
+
+    protected function schedule(Schedule $schedule)
+    {
+        $schedule->call(function () {
+            Booking::where('status', 'pending')
+                ->where('created_at', '<', now()->subMinutes(30))
+                ->delete();
+        })->everyFiveMinutes();
+    }
 }
