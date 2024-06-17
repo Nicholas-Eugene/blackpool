@@ -7,6 +7,7 @@
     <script src="https://kit.fontawesome.com/4dad1e0fea.js" crossorigin="anonymous"></script>
     @yield('css')
     <link rel="stylesheet" href="{{url('css/main.css')}}" />
+    <link rel="icon" href="{{ url('storage/img/blackpool.jpeg') }}" type="image/x-icon">
     <title>MB-TABLE</title>
 </head>
 <body>
@@ -63,13 +64,13 @@
 
             <div class="box">
                 <h3>Follow Us</h3>
-                <a href="#">Instagram</a>
-                <a href="#">TikTok</a>
-                <a href="#">WhatsApp</a>
+                <a href="https://www.instagram.com/blackpoolbilliard.grogol/">Instagram</a>
+                <a href="https://www.tiktok.com/@blackpoolbilliard">TikTok</a>
+                <a href="https://api.whatsapp.com/send/?phone=6287785908889&text&type=phone_number&app_absent=0">WhatsApp</a>
             </div>
         </div>
 
-        <h1 class="credit"> created by <span> MB-TABLE 2023 </span> | all rights reserved! </h1>
+        <h1 class="credit"> created by <span> Blackpool Billiard & Cafe 2024 </span> | all rights reserved! </h1>
     </section>
 
     <script src="{{url('js/home.js')}}"></script>
