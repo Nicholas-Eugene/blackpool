@@ -55,6 +55,19 @@ html{
     font-weight: 600;
 }
 
+.scrollable-options {
+    max-height: 400px; /* Adjust the height as needed */
+    overflow-y: auto;
+}
+
+.Information {
+    position: absolute;
+    background-color: white;
+    border: 1px solid #ccc;
+    padding: 10px;
+    z-index: 1000;
+}
+
 h1{
     text-align: center;
     font-size: 2rem;

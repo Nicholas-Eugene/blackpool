@@ -9,17 +9,19 @@
         @foreach($histories as $history)
             <div class="card">
                 <div class="image">
-                    <img src="{{asset('storage/img/billiard/mainPicture/'.$history->billiard->mainpic)}}" alt="">
+                    <!-- Assuming you have an image related to the table or a placeholder -->
+                    <!-- You might need to adjust this line based on how you store table images -->
+                    <img src="{{ asset('storage/img/tables/' . $history->table->image) }}" alt="Table Image">
                 </div>
                 <div class="text">
-                    <span class="date">{{ $history->date }}</span>
-                    <h2>{{ $history->billiard->name }}</h2>
-                    <p>Table {{ $history->tablenumber }}</p>
+                    <span class="date">{{ $history->booking_start }}</span>
+                    <h2>{{ $history->table->name }}</h2>
+                    <p>Table {{ $history->table_id }}</p>
                 </div>
 
                 <div class="right">
-                    <div class="price">Rp. {{ $history->totalprice }},00</div>
-                    <a class="detail" href="{{url('historyDetail/'.$history->id)}}">View Detail</a>
+                    <div class="price">Rp. {{ $history->total_price }},00</div>
+                    <a class="detail" href="{{ url('historyDetail/' . $history->id) }}">View Detail</a>
                 </div>
             </div>
         @endforeach

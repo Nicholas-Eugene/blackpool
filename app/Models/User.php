@@ -45,11 +45,13 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function history(){
-		return $this->hasMany(History::class);
-	}
+    public function cart()
+    {
+        return $this->hasMany(Cart::class);
+    }
 
-    public function cart(){
-		return $this->hasMany(Cart::class);
-	}
+    public function bookings()
+    {
+        return $this->hasMany(Booking::class);
+    }
 }

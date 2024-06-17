@@ -25,19 +25,12 @@
         </nav>
 
         <div class="icons">
-            <i class="fas fa-search" id="search-btn"></i>
             @if (Auth::check())
             <a href="/profile"><i class="fas fa-user" id="profile-btn"></i></a>
             @else
             <a class="btn2" href="/login">Login</a>
             @endif
         </div>
-
-        <form action="/searchBilliard" method="POST" class="search-bar-container">
-            @csrf
-            <input type="search" id="search-bar" placeholder="search here..." name="search">
-            <button style="background-color: transparent;"><label for="search-bar"><i class="fas fa-search" id="search-btn"></i></label></button>
-        </form>
     </header>
 
     {{-- body --}}

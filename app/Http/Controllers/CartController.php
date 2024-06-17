@@ -2,49 +2,67 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Billiard;
 use App\Models\Cart;
-use App\Models\History;
+use App\Models\Booking; // Assuming Booking model exists for storing booking history
+use App\Models\Table;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\MessageBag;
 
 class CartController extends Controller
 {
-    public function addToCart(Request $request){
-        Cart::create([
-            'billiard_id' => $request->route('id'),
-            'user_id' => Auth::user()->id,
-            'date' => now(),
-            'time' => $request->time,
+    public function addToCart(Request $request, $id)
+    {
+        $table = Table::find($id);
+        if (!$table) {
+            return redirect()->back()->withErrors('Table not found.');
+        }
+
+        $user = Auth::user();
+        if (!$user) {
+            return redirect()->route('login');
+        }
+
+        // Create a cart entry for the selected table
+        $cart = Cart::create([
+            'table_id' => $table->id,
+            'user_id' => $user->id,
+            'date' => now()->format('Y-m-d'),
+            'time' => json_encode($request->start_times), // Store times as JSON array
             'totalprice' => $request->totalprice,
-            'tablenumber' => $request->tablenumber,
-            'totaltables' => $request->totaltable,
-            'created_at' => now(),
-            'updated_at' => now()
+            'tablenumber' => $table->id,
+            'totaltables' => 1, // Assuming 1 table for simplicity
         ]);
-        $billiard  = Cart::where(['user_id' => Auth::user()->id, 'billiard_id' => $request->route('id')])->first();
-        return view("payment")->with('billiard', $billiard);
+
+        return redirect()->route('payment.page', ['cartId' => $cart->id]);
     }
 
-    public function checkout(Request $request){
-        $cart = Cart::where(['user_id' => Auth::user()->id, 'billiard_id' => $request->route('id')])->first();
+    public function checkout(Request $request, $id)
+    {
+        $cart = Cart::where(['user_id' => Auth::user()->id, 'table_id' => $id])->first();
 
-        History::create([
-            'billiard_id' => $request->route('id'),
+        if (!$cart) {
+            return redirect()->back()->withErrors('Cart not found.');
+        }
+
+        // Assuming there's a Booking model to store booking history
+        Booking::create([
+            'table_id' => $id,
             'user_id' => Auth::user()->id,
             'date' => now(),
-            'time' => $cart->time,
+            'time' => $cart->time, // Ensure the 'time' column in 'bookings' can store JSON or array format
             'totalprice' => $cart->totalprice + 15000,
-            'tablenumber' => $cart->tablenumber,
-            'totaltables' => $cart->totaltables,
-            'paymentmethod' => $request->paymentmethod,
-            'created_at' => now(),
-            'updated_at' => now()
+            'status' => 'pending', // Add status column if needed
         ]);
 
         $cart->delete();
-        return redirect('/home');
+
+        return redirect('/')->with('success', 'Booking confirmed and cart deleted.');
+    }
+
+    public function showPaymentPage($cartId)
+    {
+        $cart = Cart::findOrFail($cartId);
+        return view('payment')->with('cart', $cart);
     }
 }
+
