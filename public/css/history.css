@@ -3,7 +3,10 @@
     flex-direction: column;
     margin: 100px;
 }
-
+.date-header{
+    text-align: center;
+    padding: 5px;
+}
 .card{
     display: flex;
     align-items: center;

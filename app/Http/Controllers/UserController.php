@@ -17,16 +17,6 @@ class UserController extends Controller
         return view('login');
     }
 
-    public function showhistorydetailPage(Request $request){
-        $history = History::find($request->route('id'));
-        return view('historydetail')->with('history', $history);
-    }
-
-    public function showHistoryPage(){
-        $histories = History::all();
-        return view('history')->with('histories', $histories);
-    }
-
     public function signin(Request $request){
         $this->validate($request, [
             'username' => 'required',
@@ -119,7 +109,7 @@ class UserController extends Controller
 
             $user->save();
 
-            return redirect('/home');
+            return redirect('/');
     }
 
     public function showAboutUsPage(){

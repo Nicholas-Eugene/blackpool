@@ -1,29 +1,52 @@
 @extends('main')
 
 @section('css')
-    <link rel="stylesheet" href="{{url('css/history.css')}}" />
+    <link rel="stylesheet" href="{{ url('css/history.css') }}" />
 @stop
 
 @section('content')
     <div class="history-page-container">
+        @php
+            $currentDate = null;
+        @endphp
+
         @foreach($histories as $history)
+            @php
+                $formattedDate = \Carbon\Carbon::parse($history->booking_start)->format('m-d-Y');
+            @endphp
+
+            @if ($currentDate !== $formattedDate)
+                @if ($currentDate !== null)
+                    </div>
+                @endif
+
+                <div class="date-group">
+                    <h2 class="date-header">{{ $formattedDate }}</h2>
+                    @php $currentDate = $formattedDate; @endphp
+            @endif
+
             <div class="card">
-                <div class="image">
-                    <!-- Assuming you have an image related to the table or a placeholder -->
-                    <!-- You might need to adjust this line based on how you store table images -->
-                    <img src="{{ asset('storage/img/tables/' . $history->table->image) }}" alt="Table Image">
-                </div>
                 <div class="text">
-                    <span class="date">{{ $history->booking_start }}</span>
                     <h2>{{ $history->table->name }}</h2>
                     <p>Table {{ $history->table_id }}</p>
                 </div>
 
                 <div class="right">
                     <div class="price">Rp. {{ $history->total_price }},00</div>
-                    <a class="detail" href="{{ url('historyDetail/' . $history->id) }}">View Detail</a>
+                    <a class="detail" href="{{ route('history.booking', $history->id) }}">View Detail</a>
                 </div>
             </div>
+
+            @if ($loop->last)
+                </div>
+            @endif
         @endforeach
     </div>
+
+    <script>
+        function sortHistory() {
+            let sort = document.getElementById('sort').value;
+            window.location.href = `{{ url('history') }}?sort=${sort}`;
+        }
+    </script>
 @stop

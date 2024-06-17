@@ -7,13 +7,13 @@
     <script src="https://kit.fontawesome.com/4dad1e0fea.js" crossorigin="anonymous"></script>
     @yield('css')
     <link rel="stylesheet" href="{{url('css/main.css')}}" />
-    <title>MB-TABLE</title>
+    <title>BlackPool</title>
 </head>
 <body>
     {{-- header --}}
     <header>
         <div id="menu-bar" class="fas fa-bars"></div>
-        <a href="/" class="logo"><span>MB</span>-TABLE</a>
+        <a href="/" class="logo"><span>Black</span>Pool</a>
 
         <nav class="navbar">
             <a href="/">Home</a>
@@ -46,12 +46,6 @@
             </div>
 
             <div class="box">
-                <h3>Branch locations</h3>
-                <a href="#">Jakarta</a>
-                <a href="#">Bogor</a>
-                <a href="#">Depok</a>
-                <a href="#">Tangerang</a>
-                <a href="#">Bekasi</a>
             </div>
 
             <div class="box">
@@ -61,8 +55,6 @@
                 <a href="#">WhatsApp</a>
             </div>
         </div>
-
-        <h1 class="credit"> created by <span> MB-TABLE 2023 </span> | all rights reserved! </h1>
     </section>
 
     <script src="{{url('js/home.js')}}"></script>

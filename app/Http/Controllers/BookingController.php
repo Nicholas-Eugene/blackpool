@@ -69,7 +69,7 @@ class BookingController extends Controller
         }
     }
 
-    public function confirmOrder($cartId)
+    public function confirmOrder(Request $request, $cartId)
     {
         $cart = Cart::findOrFail($cartId);
 
@@ -105,14 +105,15 @@ class BookingController extends Controller
                     'booking_start' => $cart->date . ' ' . json_decode($cart->time)[0], // assuming start time is the first in the array
                     'time' => $cart->time, // Store the times as a JSON string
                     'total_price' => $cart->totalprice,
-                    'payment_method' => 'your_payment_method', // replace with actual payment method
+                    'payment_method' => $request->input('paymentmethod'),
                 ]);
 
                 $cart->delete();
                 return redirect()->route('booking.index')->with('success', 'Booking confirmed and added to history.');
             }
         }
-
+        
+        $cart->delete();
         return redirect()->route('payment.page', ['cartId' => $cartId])->withErrors('Failed to confirm order.');
     }
 
