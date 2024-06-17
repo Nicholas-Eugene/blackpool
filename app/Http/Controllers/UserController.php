@@ -100,6 +100,10 @@ class UserController extends Controller
         return view('profile');
     }
 
+    public function showhomePage(){
+        return view('home');
+    }
+
     public function updateUser(Request $request){
             $this->validate($request, [
                 'username' => 'required',

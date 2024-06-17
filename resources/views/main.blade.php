@@ -8,19 +8,22 @@
     @yield('css')
     <link rel="stylesheet" href="{{url('css/main.css')}}" />
     <link rel="icon" href="{{ url('storage/img/blackpool.jpeg') }}" type="image/x-icon">
-    <title>MB-TABLE</title>
+    <title>Blackpool Billiard & Cafe</title>
 </head>
 <body>
     {{-- header --}}
     <header>
         <div id="menu-bar" class="fas fa-bars"></div>
-        <a href="/" class="logo"><span>MB</span>-TABLE</a>
+        <a href="home" class="logo">
+            <img src="{{ url('storage/img/logo.png') }}" alt="BLACKPOOL Logo">
+        </a>
 
         <nav class="navbar">
-            <a href="/">Home</a>
-            <a href="/aboutUs">About Us</a>
+            <a href="/home" class="{{ request()->is('/') || request()->is('home') ? 'active' : '' }}">Home</a>
+            <a href="/aboutUs" class="{{ request()->is('aboutUs') ? 'active' : '' }}">About Us</a>
+            <a href="/booking" class="{{ request()->is('booking') ? 'active' : '' }}">Booking</a>
             @if (Auth::check())
-            <a href="/history">History</a>
+            <a href="/history" class="{{ request()->is('history') ? 'active' : '' }}">History</a>
             @endif
         </nav>
 
@@ -43,20 +46,20 @@
         <div class="box-container">
             <div class="box">
                 <h3>About Us</h3>
-                <p>The first billiard table booking application in Indonesia for the Jabodetabek area. Easy, convenient, and fast, book your billiard table now!</p>
+                <p>The premier billiard table booking app in Indonesia for the Jabodetabek region. Experience quick, easy, and convenient reservations—book your table today!</p>
             </div>
 
             <div class="box">
                 <h3>Branch locations</h3>
-                <a href="#">Jakarta</a>
-                <a href="#">Bogor</a>
-                <a href="#">Depok</a>
-                <a href="#">Tangerang</a>
-                <a href="#">Bekasi</a>
+                <ul class="branch-list">
+                    <li><a href="https://maps.app.goo.gl/yNibpoCSiCBAxKCF8">Grogol</a></li>
+                    <li><a href="https://g.co/kgs/Nknd1aN">Artha Gading</a></li>
+                    <li><a href="https://maps.app.goo.gl/Z6EoniTG2nZbtvzK9">Tamini Square</a></li>
+                </ul>
             </div>
 
             <div class="box">
-                <h3>Follow Us</h3>
+                <h3>Find Us On</h3>
                 <a href="https://www.instagram.com/blackpoolbilliard.grogol/">Instagram</a>
                 <a href="https://www.tiktok.com/@blackpoolbilliard">TikTok</a>
                 <a href="https://api.whatsapp.com/send/?phone=6287785908889&text&type=phone_number&app_absent=0">WhatsApp</a>
@@ -66,6 +69,6 @@
         <h1 class="credit"> created by <span> Blackpool Billiard & Cafe 2024 </span> | all rights reserved! </h1>
     </section>
 
-    <script src="{{url('js/home.js')}}"></script>
+    <script src="{{url('js/main.js')}}"></script>
 </body>
 </html>

@@ -45,7 +45,7 @@
                     <div class="swiper-wrapper">
                             <div class="testi-content swiper-slide flex">
                                     <img src = "{{url('storage/img/profile/profileImg1.jpg')}}" alt="" class="review-img">
-                                    <p class="review-quote">MB-TABLE has completely transformed the way I book billiard tables. The convenience and efficiency of their web-app are outstanding. I can now reserve my preferred time slots and even choose specific tables with just a few clicks. No more waiting in line or wasting time searching for an available table. It's a game-changer!</p>
+                                    <p class="review-quote">Blackpool Billiard has completely transformed the way I book billiard tables. The convenience and efficiency of their web-app are outstanding. I can now reserve my preferred time slots and even choose specific tables with just a few clicks. No more waiting in line or wasting time searching for an available table. It's a game-changer!</p>
                                     <i class='bx bxs-quote-alt-left quote-icon'></i>
 
                                     <div class="testi-personDetails flex">
@@ -55,7 +55,7 @@
                             </div>
                             <div class="testi-content swiper-slide flex">
                                     <img src = "{{url('storage/img/profile/profileImg2.jpg')}}" alt="" class="review-img">
-                                    <p class="review-quote">I'm thoroughly impressed with MB-TABLE's accessibility. Being able to book billiard tables from my phone or computer, no matter where I am, is fantastic. The mobile-friendly platform ensures that I can manage my bookings on the go, receiving real-time updates and notifications. It has made playing billiards so much more convenient and enjoyable for me.</p>
+                                    <p class="review-quote">I'm thoroughly impressed with Blackpool Billiard's accessibility. Being able to book billiard tables from my phone or computer, no matter where I am, is fantastic. The mobile-friendly platform ensures that I can manage my bookings on the go, receiving real-time updates and notifications. It has made playing billiards so much more convenient and enjoyable for me.</p>
                                     <i class='bx bxs-quote-alt-left quote-icon'></i>
 
                                     <div class="testi-personDetails flex">
@@ -65,7 +65,7 @@
                             </div>
                             <div class="testi-content swiper-slide flex">
                                     <img src = "{{url('storage/img/profile/profileImg3.jpg')}}" alt="" class="review-img">
-                                    <p class="review-quote">The customer support provided by MB-TABLE is exceptional. I had a few questions about the platform, and their team was quick to respond and assist me. Their friendly and knowledgeable staff made the entire experience seamless. It's reassuring to know that I can rely on their support whenever I need it. I highly recommend MB-TABLE for their top-notch customer service.</p>
+                                    <p class="review-quote">The customer support provided by Blackpool Billiard is exceptional. I had a few questions about the platform, and their team was quick to respond and assist me. Their friendly and knowledgeable staff made the entire experience seamless. It's reassuring to know that I can rely on their support whenever I need it. I highly recommend Blackpool Billiard for their top-notch customer service.</p>
                                     <i class='bx bxs-quote-alt-left quote-icon'></i>
 
                                     <div class="testi-personDetails flex">
