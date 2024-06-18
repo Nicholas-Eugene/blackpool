@@ -3,12 +3,23 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ShopController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\CartBookingController;
 use App\Http\Controllers\HistoryBookingController;
 
 // Group routes that require security middleware
 Route::group(['middleware' => 'security'], function(){
+    Route::get('/payment', [CartController::class, 'showPaymentPage'])->name('payment');
     // Go to history
+    Route::get('/history', [CartController::class, 'showHistoryPage'])->name('history');
+    // Go to History detail
+    Route::get('/historyDetail/{historyIds}', [CartController::class, 'showHistoryDetailPage'])->name('historydetail');
+    // Route for the checkout action
+    Route::post('/checkout', [CartController::class, 'checkout'])->name('checkout');
+
+// Route for showing the history detail page
+    Route::get('/historyDetail/{historyIds}', [CartController::class, 'showHistoryDetailPage'])->name('historydetail');
     Route::get('/historyBooking', [HistoryBookingController::class, 'index']);
     // Go to history details
     Route::get('/historyBooking{id}', [HistoryBookingController::class, 'showBooking'])->name('history.booking');
@@ -18,9 +29,17 @@ Route::group(['middleware' => 'security'], function(){
     Route::post('/updateUser/{id}', [UserController::class, 'updateUser']);
     // Add To Cart
     Route::post('/addToCart/{id}', [CartController::class, 'addToCart'])->name('add.to.cart');
-    // Checkout
-    Route::post('/checkout/{id}', [CartController::class, 'checkout']);
+    Route::post('/cart/increment/{id}', [CartController::class, 'incrementQuantity'])->name('cart.increment');
+    Route::post('/cart/decrement/{id}', [CartController::class, 'decrementQuantity'])->name('cart.decrement');
+    Route::post('/clearCart', [CartController::class, 'clearCart'])->name('cart.clear');
+    // Add to Cart Shop
+    Route::post('/addToCart/{type}/{id}', [CartController::class, 'addToCart']);
+    // Checkout Shop
+    Route::post('/checkout/{type}/{id}', [CartController::class, 'checkout']);
+    
 });
+
+
 
 // Authentication routes
 // Go login page
@@ -42,3 +61,7 @@ Route::get('/tables/{tableId}/bookings', [BookingController::class, 'getTableBoo
 // Cart routes
 Route::resource('carts', CartController::class);
 
+// Shop routes - public access
+Route::get('/shop', [ShopController::class, 'showShopMenu'])->name('shop');
+Route::get('/stick', [ShopController::class, 'showSticks'])->name('stick');
+Route::get('/foodandbeverage', [ShopController::class, 'showFoodAndBeverage'])->name('foodandbeverage');

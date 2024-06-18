@@ -25,13 +25,15 @@
             <a href="/aboutUs" class="{{ request()->is('aboutUs') ? 'active' : '' }}">About Us</a>
             <a href="/booking" class="{{ request()->is('booking') ? 'active' : '' }}">Booking</a>
             @if (Auth::check())
-            <a href="/historyBooking" class="{{ request()->is('history') ? 'active' : '' }}">History</a>
+            <a href="/history" class="{{ request()->is('history') ? 'active' : '' }}">History</a>
             @endif
+            <a href="/shop"> Shop</a>
         </nav>
 
         <div class="icons">
             @if (Auth::check())
             <a href="/profile"><i class="fas fa-user" id="profile-btn"></i></a>
+            <a href="/payment"><i class="fas fa-shopping-cart" id="cart-btn"></i></a>
             @else
             <a class="btn2" href="/login">Login</a>
             @endif

@@ -237,3 +237,33 @@ td:first-child{
         margin: 1.5%;
     }
 }
+
+.quantity-controls {
+    display: flex;
+    align-items: center;
+    margin: 0.4rem 0;
+}
+
+.quantity-controls button {
+    background: none;
+    border: 1px solid #ccc;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin: 0 5px;
+}
+
+.quantity-controls input {
+    width: 50px;
+    text-align: center;
+    border: 1px solid #ccc;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.product-detail {
+    max-height: 300px;
+    overflow-y: auto;
+    margin-bottom: 1rem;
+}
