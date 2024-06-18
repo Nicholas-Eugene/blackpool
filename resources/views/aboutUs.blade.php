@@ -11,14 +11,14 @@
     <section class="section about" id="about">
         <div class="about-content container">
                 <div class="about-imageContent">
-                        <img src = "{{url('storage/img/aboutUs.jpg')}}" alt="" class="about-img">
+                        <img src = "{{url('storage/img/own.jpg')}}" alt="" class="about-img">
                 </div>
 
                 <div class="about-details">
                         <div class="about-text">
-                                <h4 class="content-subtitle"><i>MB-TABLE</i></h4>
+                                <h4 class="content-subtitle"><i>Blackpool Billiard & Cafe</i></h4>
                                 <h2 class="content-title">Rack 'em Up and <br>Book Your Shot Online!</h2>
-                                <p class="content-description">Welcome to MB-TABLE, your ultimate online billiard booking solution! Established in 2023, we revolutionize the way you play and reserve billiard tables effortlessly. Our cutting-edge web-app combines convenience, efficiency, and innovation to bring you the best billiard experience</p>
+                                <p class="content-description">Hadir untuk mengantarkan Anda pada pengalaman bermain billiard terbaik dengan sistem booking online yang revolusioner! Didirikan pada tahun 2023, kami mengubah cara Anda bermain dan memesan meja billiard dengan mudah dan tanpa kerumitan. Web-App canggih kami menggabungkan kenyamanan, efisiensi, dan inovasi untuk menghadirkan pengalaman bermain billiard yang tak terlupakan.</p>
 
                                 <ul class="about-lists flex">
                                         <li class="about-list">Convenience</li>
@@ -38,39 +38,39 @@
     <div class="review-container container">
             <div class="review-text">
                     <h4 class="section-subtitle"><i>Reviews</i></h4>
-                    <h2 class="section-title">What Our Clients Says</h2>
+                    <h2 class="section-title">Kata Pengunjung</h2>
             </div>
 
             <div class="tesitmonial swiper mySwiper">
                     <div class="swiper-wrapper">
                             <div class="testi-content swiper-slide flex">
-                                    <img src = "{{url('storage/img/profile/profileImg1.jpg')}}" alt="" class="review-img">
-                                    <p class="review-quote">MB-TABLE has completely transformed the way I book billiard tables. The convenience and efficiency of their web-app are outstanding. I can now reserve my preferred time slots and even choose specific tables with just a few clicks. No more waiting in line or wasting time searching for an available table. It's a game-changer!</p>
+                                    <img src = "{{url('storage/img/profile/wijay.jpg')}}" alt="" class="review-img">
+                                    <p class="review-quote">Saya sangat senang bermain billiard di blackpool karena selain lokasinya yang dekat sehingga ketika saya bolos kelas bisa langsung menuju kesini juga disini disediakan ruangan khusus untuk merokok.</p>
                                     <i class='bx bxs-quote-alt-left quote-icon'></i>
 
                                     <div class="testi-personDetails flex">
-                                            <span class="name">Marnie Rotter</span>
+                                            <span class="name">Mr. Vincent Wijaya Sumargo</span>
                                             <span class="job">5 / 5</span>
                                     </div>
                             </div>
                             <div class="testi-content swiper-slide flex">
-                                    <img src = "{{url('storage/img/profile/profileImg2.jpg')}}" alt="" class="review-img">
-                                    <p class="review-quote">I'm thoroughly impressed with MB-TABLE's accessibility. Being able to book billiard tables from my phone or computer, no matter where I am, is fantastic. The mobile-friendly platform ensures that I can manage my bookings on the go, receiving real-time updates and notifications. It has made playing billiards so much more convenient and enjoyable for me.</p>
+                                    <img src = "{{url('storage/img/profile/nat.jpg')}}" alt="" class="review-img">
+                                    <p class="review-quote">Saya sudah cukup sering bermain billiard di tempat ini, sehingga bisa saya katakan ini merupakan salah satu tempat billiard favorit saya. Apalagi dengan peraturan baru yang melarang untuk merokok batangan serta penggantian meja dan stick baru membuat pengalaman bermain meningkat.</p>
                                     <i class='bx bxs-quote-alt-left quote-icon'></i>
 
                                     <div class="testi-personDetails flex">
-                                            <span class="name">Hailee Stainfield</span>
+                                            <span class="name">Mr. Nathanael Kenneth Lay</span>
                                             <span class="job">4.8 / 5</span>
                                     </div>
                             </div>
                             <div class="testi-content swiper-slide flex">
-                                    <img src = "{{url('storage/img/profile/profileImg3.jpg')}}" alt="" class="review-img">
-                                    <p class="review-quote">The customer support provided by MB-TABLE is exceptional. I had a few questions about the platform, and their team was quick to respond and assist me. Their friendly and knowledgeable staff made the entire experience seamless. It's reassuring to know that I can rely on their support whenever I need it. I highly recommend MB-TABLE for their top-notch customer service.</p>
+                                    <img src = "{{url('storage/img/profile/nico.jpg')}}" alt="" class="review-img">
+                                    <p class="review-quote">Hampir tiap kali saya bermain disini selalu masuk ke waiting list, yang berarti cukup banyak yang suka bermain billiard disini. Namun untuk saya pribadi tempat ini masih memilki beberapa kekurangan seperti asap dari vape atau pod yang mengganggu karena walaupun sudah tidak diizinkan rokok batangan dan dipasang air purifier namun entah kenapa asap tersebut masih mengganggu.</p>
                                     <i class='bx bxs-quote-alt-left quote-icon'></i>
 
                                     <div class="testi-personDetails flex">
-                                            <span class="name">Manny Rooker</span>
-                                            <span class="job">5 / 5</span>
+                                            <span class="name">Mr. Nicholas Eugene Supardi</span>
+                                            <span class="job">3 / 5</span>
                                     </div>
                             </div>
                         </div>

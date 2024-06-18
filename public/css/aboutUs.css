@@ -27,10 +27,10 @@ html{
 /* Color Variables */
 --primary-color: #C87E4F;
 --primary-color-hover: #C2703D;
---text-color: #333;
+--text-color: #ffffff;
 --text-color-light: #888682;
 --border-color: #484848;
---white-color: #FFF;
+--white-color: #111;
 --section-bg: #2C3034;
 
 /* z-index */
@@ -64,9 +64,9 @@ html{
   padding: 0;
   box-sizing: border-box;
 }
-body{
-  overflow-x: hidden;
-  background-color: var(--white-color);
+body {
+    background: url('/storage/img/hexa.jpg') no-repeat center center fixed;
+    background-size: cover;
 }
 
 /* Custom Scrollbar */
@@ -215,6 +215,7 @@ img{
   font-size: 2rem;
 }
 
+
 .swiper-button-next{
   right: 16rem;
 }
@@ -323,7 +324,7 @@ img{
 
 /* Review */
 .review{
-  background-color: #f2f2f2;
+  background-color: #111;
 }
 .review .section-title,
 .review .section-description{

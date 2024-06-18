@@ -1,17 +1,56 @@
-// searchbar
-let searchBtn = document.querySelector('#search-btn');
-let searchBar = document.querySelector('.search-bar-container');
+let items = document.querySelectorAll('.slider .list .item');
+let next = document.getElementById('next');
+let prev = document.getElementById('prev');
+let thumbnails = document.querySelectorAll('.thumbnail .item');
 
-searchBtn.addEventListener('click', () =>{
-    searchBtn.classList.toggle('fa-times');
-    searchBar.classList.toggle('active');
-});
 
-// burger
-let menu = document.querySelector('#menu-bar');
-let navbar = document.querySelector('.navbar');
+let countItem = items.length;
+let itemActive = 0;
 
-menu.addEventListener('click', () =>{
-    menu.classList.toggle('fa-times');
-    navbar.classList.toggle('active');
-});
+console.log('home.js is loaded and running');
+
+
+next.onclick = function(){
+    itemActive = itemActive + 1;
+    if(itemActive >= countItem){
+        itemActive = 0;
+    }
+    showSlider();
+}
+
+prev.onclick = function(){
+    itemActive = itemActive - 1;
+    if(itemActive < 0){
+        itemActive = countItem - 1;
+    }
+    showSlider();
+}
+
+let refreshInterval = setInterval(() => {
+    next.click();
+}, 5000)
+function showSlider(){
+
+    let itemActiveOld = document.querySelector('.slider .list .item.active');
+    let thumbnailActiveOld = document.querySelector('.thumbnail .item.active');
+    itemActiveOld.classList.remove('active');
+    thumbnailActiveOld.classList.remove('active');
+
+
+    items[itemActive].classList.add('active');
+    thumbnails[itemActive].classList.add('active');
+
+
+    clearInterval(refreshInterval);
+    refreshInterval = setInterval(() => {
+        next.click();
+    }, 5000)
+}
+
+
+thumbnails.forEach((thumbnail, index) => {
+    thumbnail.addEventListener('click', () => {
+        itemActive = index;
+        showSlider();
+    })
+})

@@ -1,51 +1,65 @@
 <?php
 
-use App\Http\Controllers\BilliardController;
-use App\Http\Controllers\CartController;
-use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\BookingController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\ShopController;
+use App\Http\Controllers\CartController;
+use App\Http\Controllers\CartBookingController;
+use App\Http\Controllers\HistoryBookingController;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
+// Group routes that require security middleware
 Route::group(['middleware' => 'security'], function(){
+    Route::get('/payment', [CartController::class, 'showPaymentPage'])->name('payment');
     // Go to history
-    Route::get('/history', [UserController::class, 'showHistoryPage']);
+    Route::get('/history', [CartController::class, 'showHistoryPage'])->name('history');
     // Go to History detail
-    Route::get('/historyDetail/{id}', [UserController::class, 'showhistorydetailPage']);
-    // Billiard Detail
-    Route::get('/billiardDetail/{id}', [BilliardController::class, 'showBilliardDetail']);
-    // Booking Billiard
-    Route::get('/bookingBilliard/{id}', [BilliardController::class, 'showBookingBilliard']);
+    Route::get('/historyDetail/{historyIds}', [CartController::class, 'showHistoryDetailPage'])->name('historydetail');
+    // Route for the checkout action
+    Route::post('/checkout', [CartController::class, 'checkout'])->name('checkout');
+
+    Route::get('/historyBooking', [HistoryBookingController::class, 'index']);
+    // Go to history details
+    Route::get('/historyBooking{id}', [HistoryBookingController::class, 'showBooking'])->name('history.booking');
     // Go Profile Page
     Route::get('/profile', [UserController::class, 'showProfilePage']);
     // Update user
     Route::post('/updateUser/{id}', [UserController::class, 'updateUser']);
     // Add To Cart
-    Route::post('/addToCart/{id}', [CartController::class, 'addToCart']);
-    // Checkout
-    Route::post('/checkout/{id}', [CartController::class, 'checkout']);
+    Route::post('/addToCart/{id}', [CartController::class, 'addToCart'])->name('add.to.cart');
+    Route::post('/cart/increment/{id}', [CartController::class, 'incrementQuantity'])->name('cart.increment');
+    Route::post('/cart/decrement/{id}', [CartController::class, 'decrementQuantity'])->name('cart.decrement');
+    Route::post('/clearCart', [CartController::class, 'clearCart'])->name('cart.clear');
+    // Add to Cart Shop
+    Route::post('/addToCart/{type}/{id}', [CartController::class, 'addToCart']);
+    // Checkout Shop
+    Route::post('/checkout/{type}/{id}', [CartController::class, 'checkout']);
+    
 });
 
+
+
+// Authentication routes
 // Go login page
 Route::get('/login', [UserController::class, 'showLoginPage'])->name('login');
 // User login
 Route::post('/signIn', [UserController::class, 'signin']);
 // User signout
 Route::get('/signOut', [UserController::class, 'signout']);
-// Go to home
-Route::get('/', [BilliardController::class, 'showHomePage']);
 // User register
 Route::post('/signUp', [UserController::class, 'signup']);
 // Go to About Us
 Route::get('/aboutUs', [UserController::class, 'showAboutUsPage']);
-// Search Billiard
-Route::post('/searchBilliard', [BilliardController::class, 'searchBilliard']);
+Route::get('/', [UserController::class, 'showhomePage']);
+Route::get('/booking', [BookingController::class, 'index'])->name('booking.index');
+Route::post('/booking', [BookingController::class, 'store'])->name('booking.store');
+Route::get('/payment/{cartId}', [BookingController::class, 'showPaymentPage'])->name('payment.page');
+Route::post('/confirmOrder/{cartId}', [BookingController::class, 'confirmOrder'])->name('confirm.order');
+Route::get('/tables/{tableId}/bookings', [BookingController::class, 'getTableBookings']);
+// Cart routes
+Route::resource('carts', CartController::class);
+
+// Shop routes - public access
+Route::get('/shop', [ShopController::class, 'showShopMenu'])->name('shop');
+Route::get('/stick', [ShopController::class, 'showSticks'])->name('stick');
+Route::get('/foodandbeverage', [ShopController::class, 'showFoodAndBeverage'])->name('foodandbeverage');
