@@ -87,16 +87,17 @@ class BookingController extends Controller
                 }
             }
 
+             // If all selected times are available, create booking
+             $booking = Booking::create([
+                'user_id' => Auth::id(),
+                'table_id' => $cart->table_id,
+                'date' => $cart->date,
+                'time' => $cart->time,
+                'totalprice' => $cart->totalprice,
+                'status' => 'confirmed',
+            ]);
+
             if ($booking) {
-                            // If all selected times are available, create booking
-                $booking = Booking::create([
-                    'user_id' => Auth::id(),
-                    'table_id' => $cart->table_id,
-                    'date' => $cart->date,
-                    'time' => $cart->time,
-                    'totalprice' => $cart->totalprice,
-                    'status' => 'confirmed',
-                ]);
                 // Create history record
                 HistoryBooking::create([
                     'table_id' => $cart->table_id,
@@ -134,6 +135,6 @@ class BookingController extends Controller
     public function showPaymentPage($cartId)
     {
         $cart = CartBooking::findOrFail($cartId);
-        return view('payment')->with('cart', $cart);
+        return view('paymentBooking')->with('cart', $cart);
     }
 }

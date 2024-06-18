@@ -11,13 +11,13 @@ class HistoryBookingController extends Controller{
         $sort = $request->input('sort');
         $query = HistoryBooking::with('table'); // Assuming the relationship is called 'table'
         $histories = $query->get();
-        return view('history', compact('histories'));
+        return view('historyBooking', compact('histories'));
     }
 
     public function showBooking($id)
     {
         $history = HistoryBooking::with('table', 'user')->findOrFail($id);
-        return view('historyBooking', compact('history'));
+        return view('historyBookingDetails', compact('history'));
     }
 
     public function getTimeListAttribute()

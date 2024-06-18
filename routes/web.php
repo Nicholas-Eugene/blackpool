@@ -9,7 +9,7 @@ use App\Http\Controllers\HistoryBookingController;
 // Group routes that require security middleware
 Route::group(['middleware' => 'security'], function(){
     // Go to history
-    Route::get('/history', [HistoryBookingController::class, 'index']);
+    Route::get('/historyBooking', [HistoryBookingController::class, 'index']);
     // Go to history details
     Route::get('/historyBooking{id}', [HistoryBookingController::class, 'showBooking'])->name('history.booking');
     // Go Profile Page

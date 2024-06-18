@@ -25,7 +25,7 @@
             <a href="/aboutUs" class="{{ request()->is('aboutUs') ? 'active' : '' }}">About Us</a>
             <a href="/booking" class="{{ request()->is('booking') ? 'active' : '' }}">Booking</a>
             @if (Auth::check())
-            <a href="/history" class="{{ request()->is('history') ? 'active' : '' }}">History</a>
+            <a href="/historyBooking" class="{{ request()->is('history') ? 'active' : '' }}">History</a>
             @endif
         </nav>
 
