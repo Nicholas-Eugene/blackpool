@@ -33,8 +33,8 @@ Route::get('/signOut', [UserController::class, 'signout']);
 Route::post('/signUp', [UserController::class, 'signup']);
 // Go to About Us
 Route::get('/aboutUs', [UserController::class, 'showAboutUsPage']);
-
-Route::get('/', [BookingController::class, 'index'])->name('booking.index');
+Route::get('/', [UserController::class, 'showhomePage']);
+Route::get('/booking', [BookingController::class, 'index'])->name('booking.index');
 Route::post('/booking', [BookingController::class, 'store'])->name('booking.store');
 Route::get('/payment/{cartId}', [BookingController::class, 'showPaymentPage'])->name('payment.page');
 Route::post('/confirmOrder/{cartId}', [BookingController::class, 'confirmOrder'])->name('confirm.order');

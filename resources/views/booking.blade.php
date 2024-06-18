@@ -102,7 +102,7 @@
         const tableId = element.id.replace('table-', '');
 
         if (selectedTable && selectedTable !== element) {
-            selectedTable.style.backgroundColor = "#9e0505";
+            selectedTable.style.backgroundColor = "#5995fd";
             selectedTable = null;
             ttlprice.value = 0;
             tblnumber.value = '';

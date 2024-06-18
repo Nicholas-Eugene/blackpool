@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script src="https://kit.fontawesome.com/4dad1e0fea.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="{{url('css/login.css')}}" />
-    <title>MB-TABLE</title>
+    <title>Blackpool Billiard & Cafe</title>
 </head>
 <body>
     <div class="container">
