@@ -16,9 +16,9 @@
 
                 <div class="about-details">
                         <div class="about-text">
-                                <h4 class="content-subtitle"><i>MB-TABLE</i></h4>
+                                <h4 class="content-subtitle"><i>BLACK Pool</i></h4>
                                 <h2 class="content-title">Rack 'em Up and <br>Book Your Shot Online!</h2>
-                                <p class="content-description">Welcome to MB-TABLE, your ultimate online billiard booking solution! Established in 2023, we revolutionize the way you play and reserve billiard tables effortlessly. Our cutting-edge web-app combines convenience, efficiency, and innovation to bring you the best billiard experience</p>
+                                <p class="content-description">Welcome to BlackPool, your ultimate online billiard booking solution! Established in 2023, we revolutionize the way you play and reserve billiard tables effortlessly. Our cutting-edge web-app combines convenience, efficiency, and innovation to bring you the best billiard experience</p>
 
                                 <ul class="about-lists flex">
                                         <li class="about-list">Convenience</li>

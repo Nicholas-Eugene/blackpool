@@ -13,7 +13,7 @@
     {{-- header --}}
     <header>
         <div id="menu-bar" class="fas fa-bars"></div>
-        <a href="/" class="logo"><span>MB</span>-TABLE</a>
+        <a href="/" class="logo"> <span>Black</span>Pool </a>
 
         <nav class="navbar">
             <a href="/">Home</a>
@@ -21,12 +21,14 @@
             @if (Auth::check())
             <a href="/history">History</a>
             @endif
+            <a href="/shop"> Shop</a>
         </nav>
 
         <div class="icons">
             <i class="fas fa-search" id="search-btn"></i>
             @if (Auth::check())
             <a href="/profile"><i class="fas fa-user" id="profile-btn"></i></a>
+            <a href="/payment"><i class="fas fa-shopping-cart" id="cart-btn"></i></a>
             @else
             <a class="btn2" href="/login">Login</a>
             @endif

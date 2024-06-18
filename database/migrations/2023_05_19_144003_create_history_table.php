@@ -15,13 +15,12 @@ return new class extends Migration
     {
         Schema::create('history', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('billiard_id')->constrained('billiard')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('user_id')->constrained('users')->onUpdate('cascade')->onDelete('cascade');
+            $table->unsignedBigInteger('product_id')->nullable();
+            $table->string('product_type', 50)->nullable();
             $table->date('date');
             $table->time('time');
             $table->integer('totalprice');
-            $table->string('tablenumber');
-            $table->integer('totaltables');
             $table->string('paymentmethod', 30);
             $table->timestamps();
         });

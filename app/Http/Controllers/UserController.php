@@ -17,16 +17,32 @@ class UserController extends Controller
         return view('login');
     }
 
-    public function showhistorydetailPage(Request $request){
-        $history = History::find($request->route('id'));
-        return view('historydetail')->with('history', $history);
+    public function showHistoryDetailPage($historyIds)
+    {
+    $ids = explode(',', $historyIds);
+    $historyItems = History::whereIn('id', $ids)
+        ->with(['stick', 'foodAndBeverage'])
+        ->get();
+
+    $totalPrice = $historyItems->sum('totalprice');
+    $totalPriceWithAdmin = $totalPrice + 10000; // Adjust admin fee if necessary
+
+    return view('historydetail', compact('historyItems', 'totalPrice', 'totalPriceWithAdmin'));
     }
 
-    public function showHistoryPage(){
-        $histories = History::all();
-        return view('history')->with('histories', $histories);
-    }
+    public function showHistoryPage()
+{
+    $histories = History::where('user_id', Auth::id())
+        ->with(['stick', 'foodAndBeverage'])
+        ->get()
+        ->groupBy(function ($item) {
+            return $item->date . ' ' . $item->time;
+        });
 
+    return view('history', compact('histories'));
+}
+
+   
     public function signin(Request $request){
         $this->validate($request, [
             'username' => 'required',

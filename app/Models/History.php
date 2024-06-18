@@ -11,21 +11,27 @@ class History extends Model
     protected $table = 'history';
 
     protected $fillable = [
-        'billiard_id',
         'user_id',
+        'product_id',
+        'product_type',
         'date',
         'time',
         'totalprice',
-        'tablenumber',
-        'totaltables',
-        'paymentmethod'
-	];
+        'paymentmethod',
+        'created_at',
+        'updated_at'
+    ];
 
     public function user(){
 		return $this->belongsTo(User::class);
 	}
 
-    public function billiard(){
-		return $this->belongsTo(Billiard::class);
-	}
+    public function stick(){
+    return $this->belongsTo(Stick::class, 'product_id');
+  }
+
+    public function foodAndBeverage(){
+    return $this->belongsTo(FoodAndBeverage::class, 'product_id');
+  }
+
 }
