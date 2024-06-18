@@ -6,8 +6,6 @@
 
 @section('content')
 <div class="container">
-    <h1>Shop Menu</h1>
-    
     @if(session('success'))
         <div class="alert alert-success">
             {{ session('success') }}

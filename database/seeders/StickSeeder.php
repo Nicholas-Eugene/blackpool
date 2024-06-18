@@ -17,66 +17,66 @@ class StickSeeder extends Seeder
     public function run()
     {
         DB::table('stick')->insert([
-            'name' => 'Afterhour',
+            'name' => 'Predator Air Rush',
             'price' => 10000.00,
-            'description' => 'A hangout place with an industrial bar concept offering billiard table facilities and DJ music performances.',
-            'stock' => 10, // Assuming default stock for illustration
-            'mainpic' => 'https://www.static-src.com/wcsstore/Indraprastha/images/catalog/full//catalog-image/86/MTA-140404610/brd-44261_venom-carbon-jump-cue-raider-13-5mm-stick-bola-lompat-billiard-loncat-terjamin_full01-7f7a6878.jpg',
+            'description' => 'Introducing the Predator Air Rush jump cue with Air REVO carbon fiber composite shaft. ',
+            'stock' => 10,
+            'mainpic' => 'storage/img/predator.jpg',
             'pic2' => 'AfterhourPic1.jpg',
             'pic3' => 'AfterhourPic2.jpg',
             'pic4' => 'AfterhourPic3.jpg'
         ]);
 
         DB::table('stick')->insert([
-            'name' => 'Q Billiard',
+            'name' => 'Fury Tempest AF Series AF-1',
             'price' => 85000.00,
-            'description' => 'A relaxed, dimly lit bar offering several pool tables and the standard cocktails.',
+            'description' => 'Fury Tempest cue series presents an unbeatable price-performance ratio whilst not compromising design and quality.',
             'stock' => 10, // Assuming default stock for illustration
-            'mainpic' => 'https://img.lazcdn.com/g/p/5e583b77cd12739b9dca8f9d6ac42c11.jpg_720x720q80.jpg',
+            'mainpic' => 'storage/img/fury.png',
             'pic2' => 'QBilliardPic1.jpg',
             'pic3' => 'QBilliardPic2.jpg',
             'pic4' => 'QBilliardPic3.jpg'
         ]);
 
         DB::table('stick')->insert([
-            'name' => 'Berlian Billiard & Cafe',
+            'name' => 'Predator P3 Emerald Green Revo',
             'price' => 45000.00,
-            'description' => 'A place to hang out to play billiards in South Jakarta, as well as providing snacks and various food menus at the caffe',
+            'description' => 'Featuring a Metallic Green finish with Black Gloss Stripe, 30-piece construction, and the Uni-Loc© Weight Cartridge system.',
             'stock' => 10, // Assuming default stock for illustration
-            'mainpic' => 'mainPicBerlian.jpg',
+            'mainpic' => 'storage/img/revo.jpg',
             'pic2' => 'BerlianPic1.jpg',
             'pic3' => 'BerlianPic2.jpg',
             'pic4' => 'BerlianPic3.jpg'
         ]);
 
         DB::table('stick')->insert([
-            'name' => '911 Billiard Alam Sutera',
+            'name' => 'CueMall Valor Model F',
             'price' => 60000.00,
-            'description' => 'hangout place to play billiards with dining and caffe facilities',
+            'description' => 'CueMall Valor series is the newest innovation in Carbon Cue. Shaft made with Carbon Fibre and bold decal designs.',
             'stock' => 10, // Assuming default stock for illustration
-            'mainpic' => 'mainPic911.jpg',
+            'mainpic' => 'storage/img/cuemall.jpg',
             'pic2' => '911Pic1.jpg',
             'pic3' => '911Pic2.jpg',
             'pic4' => '911Pic3.jpg'
         ]);
 
         DB::table('stick')->insert([
-            'name' => 'Kals Drive In',
+            'name' => 'Scorpion Trojan TR-06',
             'price' => 50000.00,
-            'description' => 'hangout place to play billiards with VIP rooms (karaoke, playstation, and billiard), dining and caffe facilities',
+            'description' => 'Scorpion Trojan series is the newest innovation Carbon Cue. Shaft made with Real Carbon, and with bold designs with water transfer imaging technology.',
             'stock' => 10, // Assuming default stock for illustration
-            'mainpic' => 'mainPicKals.jpg',
+            'mainpic' => 'storage/img/scorpion.jpg',
             'pic2' => 'KalsPic1.jpg',
             'pic3' => 'KalsPic2.jpg',
             'pic4' => 'KalsPic3.jpg'
         ]);
 
         DB::table('stick')->insert([
-            'name' => 'Hexa Billiard',
+            'name' => 'Predator SP8 Curly/Heart LL',
             'price' => 50000.00,
-            'description' => 'hangout place to play billiards with dining and caffe facilities',
+            'description' => 'Predator 8-Point Sneaky Pete Pool Cue - Purple Heart/Curly - Elephant Pattern Leather Wrap.',
             'stock' => 10, // Assuming default stock for illustration
-            'mainpic' => 'mainPicHexa.jpg',
+            'mainpic' => 'storage/img/predator2.jpg',
             'pic2' => 'HexaPic1.jpg',
             'pic3' => 'HexaPic2.jpg',
             'pic4' => 'HexaPic3.jpg'

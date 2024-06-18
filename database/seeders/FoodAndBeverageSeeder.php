@@ -16,11 +16,11 @@ class FoodAndBeverageSeeder extends Seeder
     public function run()
     {
         DB::table('foodandbeverage')->insert([
-            'name' => 'Cheeseburger',
+            'name' => 'Nasi goreng Ayam',
             'price' => 50000.00,
-            'description' => 'A delicious cheeseburger with fresh lettuce, tomato, and a special sauce.',
+            'description' => 'Nasi goreng klasik dengan ayam, telur, dan bumbu khas Indonesia.',
             'stock' => 20, // Assuming default stock for illustration
-            'mainpic' => 'cheeseburger_main.jpg',
+            'mainpic' => 'storage/img/nasgor.jpg',
             'pic2' => 'cheeseburger_1.jpg',
             'pic3' => 'cheeseburger_2.jpg',
             'pic4' => 'cheeseburger_3.jpg',
@@ -28,11 +28,11 @@ class FoodAndBeverageSeeder extends Seeder
         ]);
 
         DB::table('foodandbeverage')->insert([
-            'name' => 'Veggie Pizza',
+            'name' => 'Nasi ayam rica rica',
             'price' => 75000.00,
-            'description' => 'A vegetarian pizza topped with fresh vegetables and mozzarella cheese.',
+            'description' => 'Nasi dengan ayam dimasak pedas dengan bumbu rica-rica khas Manado.',
             'stock' => 15, // Assuming default stock for illustration
-            'mainpic' => 'veggie_pizza_main.jpg',
+            'mainpic' => 'storage/img/rica.jpg',
             'pic2' => 'veggie_pizza_1.jpg',
             'pic3' => 'veggie_pizza_2.jpg',
             'pic4' => 'veggie_pizza_3.jpg',
@@ -40,11 +40,11 @@ class FoodAndBeverageSeeder extends Seeder
         ]);
 
         DB::table('foodandbeverage')->insert([
-            'name' => 'Chocolate Milkshake',
+            'name' => 'Nasi Beef Yakiniku',
             'price' => 30000.00,
-            'description' => 'A creamy chocolate milkshake topped with whipped cream and chocolate shavings.',
+            'description' => 'Nasi dengan irisan daging sapi panggang ala Jepang dengan saus yakiniku.',
             'stock' => 25, // Assuming default stock for illustration
-            'mainpic' => 'chocolate_milkshake_main.jpg',
+            'mainpic' => 'storage/img/beef.jpg',
             'pic2' => 'chocolate_milkshake_1.jpg',
             'pic3' => 'chocolate_milkshake_2.jpg',
             'pic4' => 'chocolate_milkshake_3.jpg',
@@ -52,11 +52,11 @@ class FoodAndBeverageSeeder extends Seeder
         ]);
 
         DB::table('foodandbeverage')->insert([
-            'name' => 'Lemonade',
+            'name' => 'Roti Bakar Coklat Keju',
             'price' => 20000.00,
-            'description' => 'A refreshing lemonade made with freshly squeezed lemons.',
+            'description' => 'Roti bakar dengan olesan coklat dan keju leleh.',
             'stock' => 30, // Assuming default stock for illustration
-            'mainpic' => 'lemonade_main.jpg',
+            'mainpic' => 'storage/img/roti.jpeg',
             'pic2' => 'lemonade_1.jpg',
             'pic3' => 'lemonade_2.jpg',
             'pic4' => 'lemonade_3.jpg',
@@ -64,11 +64,11 @@ class FoodAndBeverageSeeder extends Seeder
         ]);
 
         DB::table('foodandbeverage')->insert([
-            'name' => 'Grilled Chicken Sandwich',
+            'name' => 'Indomie Kuah Kari Ayam',
             'price' => 55000.00,
-            'description' => 'A grilled chicken sandwich with lettuce, tomato, and mayo on a toasted bun.',
+            'description' => 'Mie instan rebus dengan kuah kari ayam yang gurih.',
             'stock' => 10, // Assuming default stock for illustration
-            'mainpic' => 'grilled_chicken_sandwich_main.jpg',
+            'mainpic' => 'storage/img/indomi.jpg',
             'pic2' => 'grilled_chicken_sandwich_1.jpg',
             'pic3' => 'grilled_chicken_sandwich_2.jpg',
             'pic4' => 'grilled_chicken_sandwich_3.jpg',
@@ -76,11 +76,11 @@ class FoodAndBeverageSeeder extends Seeder
         ]);
 
         DB::table('foodandbeverage')->insert([
-            'name' => 'Cappuccino',
+            'name' => 'Lemonade Soda Punch',
             'price' => 40000.00,
-            'description' => 'A classic cappuccino with steamed milk and a rich espresso shot.',
+            'description' => 'Minuman berkarbonasi segar dari air lemon dan gula.',
             'stock' => 20, // Assuming default stock for illustration
-            'mainpic' => 'cappuccino_main.jpg',
+            'mainpic' => 'storage/img/lemonade.jpg',
             'pic2' => 'cappuccino_1.jpg',
             'pic3' => 'cappuccino_2.jpg',
             'pic4' => 'cappuccino_3.jpg',
