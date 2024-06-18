@@ -5,9 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script src="https://kit.fontawesome.com/4dad1e0fea.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
     @yield('css')
-    <link rel="stylesheet" href="{{url('css/main.css')}}" />
+    <link rel="stylesheet" href="{{ url('css/main.css') }}" />
     <link rel="icon" href="{{ url('storage/img/blackpool.jpeg') }}" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <title>Blackpool Billiard & Cafe</title>
 </head>
 <body>
@@ -19,7 +21,7 @@
         </a>
 
         <nav class="navbar">
-            <a href="/home" class="{{ request()->is('/') || request()->is('home') ? 'active' : '' }}">Home</a>
+            <a href="/" class="{{ request()->is('/') || request()->is('home') ? 'active' : '' }}">Home</a>
             <a href="/aboutUs" class="{{ request()->is('aboutUs') ? 'active' : '' }}">About Us</a>
             <a href="/booking" class="{{ request()->is('booking') ? 'active' : '' }}">Booking</a>
             @if (Auth::check())
@@ -40,9 +42,7 @@
     @yield('content')
 
     {{-- footer --}}
-
     <section class="footer">
-
         <div class="box-container">
             <div class="box">
                 <h3>About Us</h3>
@@ -69,6 +69,11 @@
         <h1 class="credit"> created by <span> Blackpool Billiard & Cafe 2024 </span> | all rights reserved! </h1>
     </section>
 
-    <script src="{{url('js/main.js')}}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script>
+        AOS.init();
+    </script>
+    @yield('js')
+    <script src="{{ url('js/main.js') }}"></script>
 </body>
 </html>
