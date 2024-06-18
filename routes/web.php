@@ -18,8 +18,6 @@ Route::group(['middleware' => 'security'], function(){
     // Route for the checkout action
     Route::post('/checkout', [CartController::class, 'checkout'])->name('checkout');
 
-// Route for showing the history detail page
-    Route::get('/historyDetail/{historyIds}', [CartController::class, 'showHistoryDetailPage'])->name('historydetail');
     Route::get('/historyBooking', [HistoryBookingController::class, 'index']);
     // Go to history details
     Route::get('/historyBooking{id}', [HistoryBookingController::class, 'showBooking'])->name('history.booking');
