@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class History extends Model
+class HistoryBooking extends Model
 {
     use HasFactory;
 
-    protected $table = 'history';
+    protected $table = 'history_bookings'; // Use the correct table name
 
     protected $fillable = [
         'table_id',
@@ -30,4 +30,3 @@ class History extends Model
         return $this->belongsTo(Table::class);
     }
 }
-?>

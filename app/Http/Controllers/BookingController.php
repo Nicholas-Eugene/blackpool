@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\History;
+use App\Models\HistoryBooking;
 use App\Models\Booking; // Pastikan ini sudah diimpor
-use App\Models\Cart;
+use App\Models\CartBooking;
 use App\Models\Table;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -52,7 +52,7 @@ class BookingController extends Controller
         $cart = null;
 
         foreach ($tableIds as $tableId) {
-            $cart = Cart::create([
+            $cart = CartBooking::create([
                 'user_id' => Auth::id(),
                 'table_id' => $tableId,
                 'date' => now()->toDateString(),
@@ -71,7 +71,7 @@ class BookingController extends Controller
 
     public function confirmOrder(Request $request, $cartId)
     {
-        $cart = Cart::findOrFail($cartId);
+        $cart = CartBooking::findOrFail($cartId);
 
         if ($cart && $cart->status == 'pending') {
             // Check if the selected time slots are available
@@ -87,19 +87,18 @@ class BookingController extends Controller
                 }
             }
 
-            // If all selected times are available, create booking
-            $booking = Booking::create([
-                'user_id' => Auth::id(),
-                'table_id' => $cart->table_id,
-                'date' => $cart->date,
-                'time' => $cart->time,
-                'totalprice' => $cart->totalprice,
-                'status' => 'confirmed',
-            ]);
-
             if ($booking) {
+                            // If all selected times are available, create booking
+                $booking = Booking::create([
+                    'user_id' => Auth::id(),
+                    'table_id' => $cart->table_id,
+                    'date' => $cart->date,
+                    'time' => $cart->time,
+                    'totalprice' => $cart->totalprice,
+                    'status' => 'confirmed',
+                ]);
                 // Create history record
-                History::create([
+                HistoryBooking::create([
                     'table_id' => $cart->table_id,
                     'user_id' => Auth::id(),
                     'booking_start' => $cart->date . ' ' . json_decode($cart->time)[0], // assuming start time is the first in the array
@@ -134,7 +133,7 @@ class BookingController extends Controller
 
     public function showPaymentPage($cartId)
     {
-        $cart = Cart::findOrFail($cartId);
+        $cart = CartBooking::findOrFail($cartId);
         return view('payment')->with('cart', $cart);
     }
 }

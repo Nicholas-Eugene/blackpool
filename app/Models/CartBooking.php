@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Cart extends Model
+class CartBooking extends Model
 {
     use HasFactory;
 
-    protected $table = 'carts';
+    protected $table = 'cart_bookings'; // Use the correct table name
 
     protected $fillable = [
         'table_id',

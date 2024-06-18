@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Cart;
+use App\Models\CartBooking;
 use App\Models\Booking; // Assuming Booking model exists for storing booking history
 use App\Models\Table;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class CartController extends Controller
+class CartBookingController extends Controller
 {
     public function addToCart(Request $request, $id)
     {

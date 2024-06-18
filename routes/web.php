@@ -3,15 +3,15 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\CartController;
-use App\Http\Controllers\HistoryController;
+use App\Http\Controllers\CartBookingController;
+use App\Http\Controllers\HistoryBookingController;
 
 // Group routes that require security middleware
 Route::group(['middleware' => 'security'], function(){
     // Go to history
-    Route::get('/history', [HistoryController::class, 'index']);
+    Route::get('/history', [HistoryBookingController::class, 'index']);
     // Go to history details
-    Route::get('/historyBooking{id}', [HistoryController::class, 'showBooking'])->name('history.booking');
+    Route::get('/historyBooking{id}', [HistoryBookingController::class, 'showBooking'])->name('history.booking');
     // Go Profile Page
     Route::get('/profile', [UserController::class, 'showProfilePage']);
     // Update user

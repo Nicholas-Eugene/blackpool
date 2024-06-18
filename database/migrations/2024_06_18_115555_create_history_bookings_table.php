@@ -4,24 +4,34 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateHistorysTable extends Migration
+class CreateHistoryBookingsTable extends Migration
 {
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
     public function up()
     {
-        Schema::create('history', function (Blueprint $table) {
+        Schema::create('history_bookings', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreignId('table_id')->constrained()->onDelete('cascade');
-            $table->dateTime('booking_start');
-            $table->dateTime('booking_end');
+            $table->timestamp('booking_start');
+            $table->json('time'); // Using json to store the time array
             $table->decimal('total_price', 10, 2);
             $table->string('payment_method');
             $table->timestamps();
         });
     }
 
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
     public function down()
     {
-        Schema::dropIfExists('history');
+        Schema::dropIfExists('history_bookings');
     }
 }
