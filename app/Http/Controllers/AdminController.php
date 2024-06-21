@@ -39,6 +39,7 @@ class AdminController extends Controller
         return view('admin.sticks', compact('sticks'));
     }
 
+    // Food and Beverage functions
     public function createFoodAndBeverage()
     {
         return view('admin.create_foodandbeverage');
@@ -92,7 +93,7 @@ class AdminController extends Controller
         if ($request->hasFile('mainpic')) {
             // Define the storage path
             $path = $request->file('mainpic')->storeAs('public/img/fnb', $request->file('mainpic')->getClientOriginalName());
-            $foodAndBeverage->mainpic = $path;
+            $foodAndBeverage->mainpic = 'storage/img/fnb/' . $request->file('mainpic')->getClientOriginalName();
         }
 
         $foodAndBeverage->name = $validated['name'];
@@ -111,5 +112,104 @@ class AdminController extends Controller
         $foodAndBeverage->delete();
 
         return redirect()->route('admin.foodsAndBeverages')->with('success', 'Food or Beverage deleted successfully.');
+    }
+
+    // Stick functions
+    public function createStick()
+    {
+        return view('admin.create_stick');
+    }
+
+    public function storeStick(Request $request)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'price' => 'required|numeric',
+            'description' => 'nullable|string',
+            'stock' => 'required|integer',
+            'mainpic' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'pic2' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'pic3' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'pic4' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
+        // Define the storage paths
+        $mainPicPath = $request->file('mainpic')->storeAs('public/img/stick', $request->file('mainpic')->getClientOriginalName());
+
+        $stick = new Stick;
+        $stick->name = $validated['name'];
+        $stick->price = $validated['price'];
+        $stick->description = $validated['description'];
+        $stick->stock = $validated['stock'];
+        $stick->mainpic = 'storage/img/stick/' . $request->file('mainpic')->getClientOriginalName();
+        if ($request->hasFile('pic2')) {
+            $pic2Path = $request->file('pic2')->storeAs('public/img/stick', $request->file('pic2')->getClientOriginalName());
+            $stick->pic2 = 'storage/img/stick/' . $request->file('pic2')->getClientOriginalName();
+        }
+        if ($request->hasFile('pic3')) {
+            $pic3Path = $request->file('pic3')->storeAs('public/img/stick', $request->file('pic3')->getClientOriginalName());
+            $stick->pic3 = 'storage/img/stick/' . $request->file('pic3')->getClientOriginalName();
+        }
+        if ($request->hasFile('pic4')) {
+            $pic4Path = $request->file('pic4')->storeAs('public/img/stick', $request->file('pic4')->getClientOriginalName());
+            $stick->pic4 = 'storage/img/stick/' . $request->file('pic4')->getClientOriginalName();
+        }
+        $stick->save();
+
+        return redirect()->route('admin.sticks')->with('success', 'Stick created successfully.');
+    }
+
+    public function editStick($id)
+    {
+        $stick = Stick::findOrFail($id);
+        return view('admin.edit_stick', compact('stick'));
+    }
+
+    public function updateStick(Request $request, $id)
+    {
+        $stick = Stick::findOrFail($id);
+
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'price' => 'required|numeric',
+            'description' => 'nullable|string',
+            'stock' => 'required|integer',
+            'mainpic' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'pic2' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'pic3' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'pic4' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
+        if ($request->hasFile('mainpic')) {
+            $mainPicPath = $request->file('mainpic')->storeAs('public/img/stick', $request->file('mainpic')->getClientOriginalName());
+            $stick->mainpic = 'storage/img/stick/' . $request->file('mainpic')->getClientOriginalName();
+        }
+        if ($request->hasFile('pic2')) {
+            $pic2Path = $request->file('pic2')->storeAs('public/img/stick', $request->file('pic2')->getClientOriginalName());
+            $stick->pic2 = 'storage/img/stick/' . $request->file('pic2')->getClientOriginalName();
+        }
+        if ($request->hasFile('pic3')) {
+            $pic3Path = $request->file('pic3')->storeAs('public/img/stick', $request->file('pic3')->getClientOriginalName());
+            $stick->pic3 = 'storage/img/stick/' . $request->file('pic3')->getClientOriginalName();
+        }
+        if ($request->hasFile('pic4')) {
+            $pic4Path = $request->file('pic4')->storeAs('public/img/stick', $request->file('pic4')->getClientOriginalName());
+            $stick->pic4 = 'storage/img/stick/' . $request->file('pic4')->getClientOriginalName();
+        }
+        $stick->name = $validated['name'];
+        $stick->price = $validated['price'];
+        $stick->description = $validated['description'];
+        $stick->stock = $validated['stock'];
+        $stick->save();
+
+        return redirect()->route('admin.sticks')->with('success', 'Stick updated successfully.');
+    }
+
+    public function deleteStick($id)
+    {
+        $stick = Stick::findOrFail($id);
+        $stick->delete();
+
+        return redirect()->route('admin.sticks')->with('success', 'Stick deleted successfully.');
     }
 }
