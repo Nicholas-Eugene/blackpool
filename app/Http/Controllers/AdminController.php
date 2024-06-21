@@ -212,4 +212,32 @@ class AdminController extends Controller
 
         return redirect()->route('admin.sticks')->with('success', 'Stick deleted successfully.');
     }
-}
+
+    public function editUser($id)
+    {
+        $user = User::findOrFail($id);
+        return view('admin.edit_user', compact('user'));
+    }
+    
+    public function updateUser(Request $request, $id)
+    {
+        $user = User::findOrFail($id);
+    
+        $validated = $request->validate([
+            'username' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users,email,' . $id,
+            'password' => 'nullable|string|min:8|confirmed',
+            'is_admin' => 'required|boolean',
+        ]);
+    
+        $user->username = $validated['username'];
+        $user->email = $validated['email'];
+        if (!empty($validated['password'])) {
+            $user->password = bcrypt($validated['password']);
+        }
+        $user->is_admin = $validated['is_admin'];
+        $user->save();
+    
+        return redirect()->route('admin.users')->with('success', 'User updated successfully.');
+    }
+}    

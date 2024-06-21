@@ -27,7 +27,12 @@ Route::middleware(['auth', 'is_admin'])->group(function () {
     Route::get('/admin/sticks/{id}/edit', [AdminController::class, 'editStick'])->name('admin.editStick');
     Route::put('/admin/sticks/{id}', [AdminController::class, 'updateStick'])->name('admin.updateStick');
     Route::delete('/admin/sticks/{id}', [AdminController::class, 'deleteStick'])->name('admin.deleteStick');
+
+    Route::get('/admin/users/{id}/edit', [AdminController::class, 'editUser'])->name('admin.editUser');
+    Route::put('/admin/users/{id}', [AdminController::class, 'updateUser'])->name('admin.updateUser');
+    Route::delete('/admin/users/{id}', [AdminController::class, 'deleteUser'])->name('admin.deleteUser');
 });
+
 // Group routes that require security middleware
 Route::group(['middleware' => 'security'], function(){
     Route::get('/payment', [CartController::class, 'showPaymentPage'])->name('payment');
