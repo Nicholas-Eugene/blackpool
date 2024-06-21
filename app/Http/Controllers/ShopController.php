@@ -14,12 +14,12 @@ class ShopController extends Controller
     }
 
     public function showSticks(){
-        $stick = Stick::paginate(6)->withQueryString();
+        $stick = Stick::all();
         return view('shop')->with(['stick' => $stick, 'section' => 'stick']);
     }
 
     public function showFoodAndBeverage(){
-        $foodandbeverage = FoodAndBeverage::paginate(6)->withQueryString();
+        $foodandbeverage = FoodAndBeverage::all();
         return view('shop')->with(['foodandbeverage' => $foodandbeverage, 'section' => 'foodandbeverage']);
     }
 

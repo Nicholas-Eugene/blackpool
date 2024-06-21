@@ -11,19 +11,12 @@
             <h2>Order {{ $loop->iteration }}</h2>
             <span class="date-time">{{ $dateTime }}</span>
         </div>
-
         @foreach ($historyGroup as $history)
             <div class="card">
-                <div class="image">
-                    @if ($history->product_type == 'stick')
-                        <img src="{{ asset('storage/img/stick/' . $history->stick->image) }}" alt="{{ $history->stick->name }}">
-                    @elseif ($history->product_type == 'foodandbeverage')
-                        <img src="{{ asset('storage/img/foodandbeverage/' . $history->foodAndBeverage->image) }}" alt="{{ $history->foodAndBeverage->name }}">
-                    @endif
-                </div>
                 <div class="text">
                     <span class="date">{{ $history->date }}</span>
                     <h2>{{ $history->product_type == 'stick' ? $history->stick->name : $history->foodAndBeverage->name }}</h2>
+                    <p>{{ $history->product_type == 'stick' ? $history->stick->description : $history->foodAndBeverage->description }}</p>
                 </div>
                 <div class="right">
                     <div class="price">Rp. {{ number_format($history->totalprice, 0, ',', '.') }},00</div>

@@ -23,7 +23,7 @@ class CartController extends Controller
         if (!$product) {
             return redirect()->back()->withErrors(['Invalid stick ID']);
         }
-    } elseif ($productType === 'foodandbeverage') {
+    } elseif ($productType === 'food') {
         $product = FoodAndBeverage::find($productId);
         if (!$product) {
             return redirect()->back()->withErrors(['Invalid food or beverage ID']);
@@ -72,7 +72,7 @@ class CartController extends Controller
 
         if ($cart->product_type === 'stick') {
             $product = Stick::find($cart->product_id);
-        } elseif ($cart->product_type === 'foodandbeverage') {
+        } elseif ($cart->product_type === 'food') {
             $product = FoodAndBeverage::find($cart->product_id);
         }
 
@@ -127,48 +127,26 @@ class CartController extends Controller
 
     public function incrementQuantity($id)
     {
-    $cartItem = Cart::find($id);
-    if ($cartItem) {
-        $cartItem->quantity += 1;
-        $cartItem->save();
-    }
+        $cartItem = Cart::find($id);
+        if ($cartItem) {
+            $cartItem->quantity += 1;
+            $cartItem->save();
+        }
 
-    return $this->calculateCart($cartItem);
+        return redirect()->back()->with('success', 'Quantity increased.');
     }
 
     public function decrementQuantity($id)
     {
-    $cartItem = Cart::find($id);
-    if ($cartItem && $cartItem->quantity > 1) {
-        $cartItem->quantity -= 1;
-        $cartItem->save();
-    }
-
-    return $this->calculateCart($cartItem);
-    }
-
-    private function calculateCart($cartItem)
-    {
-    $cartItems = Cart::where('user_id', auth()->id())->get();
-    $subtotal = $cartItems->reduce(function ($carry, $item) {
-        $product = null;
-
-        if ($item->product_type === 'stick') {
-            $product = Stick::find($item->product_id);
-        } elseif ($item->product_type === 'foodandbeverage') {
-            $product = FoodAndBeverage::find($item->product_id);
+        $cartItem = Cart::find($id);
+        if ($cartItem && $cartItem->quantity > 1) {
+            $cartItem->quantity -= 1;
+            $cartItem->save();
         }
 
-        return $carry + ($product->price * $item->quantity);
-    }, 0);
-
-    return response()->json([
-        'success' => true,
-        'newQuantity' => $cartItem->quantity,
-        'newItemTotal' => $product->price * $cartItem->quantity,
-        'newSubtotal' => $subtotal
-    ]);
+        return redirect()->back()->with('success', 'Quantity decreased.');
     }
+
     // Clear cart
     public function clearCart()
     {

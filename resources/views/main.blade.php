@@ -16,7 +16,7 @@
     {{-- header --}}
     <header>
         <div id="menu-bar" class="fas fa-bars"></div>
-        <a href="home" class="logo">
+        <a href="/" class="logo">
             <img src="{{ url('storage/img/logo.png') }}" alt="BLACKPOOL Logo">
         </a>
 

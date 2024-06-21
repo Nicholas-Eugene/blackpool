@@ -19,7 +19,8 @@ class History extends Model
         'totalprice',
         'paymentmethod',
         'created_at',
-        'updated_at'
+        'updated_at',
+        'quantity'
     ];
 
     public function user(){
