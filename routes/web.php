@@ -7,7 +7,11 @@ use App\Http\Controllers\ShopController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CartBookingController;
 use App\Http\Controllers\HistoryBookingController;
+use App\Http\Controllers\AdminController;
 
+Route::middleware(['auth', 'is_admin'])->group(function () {
+    Route::get('/admin', [AdminController::class, 'index'])->name('admin.dashboard');
+});
 // Group routes that require security middleware
 Route::group(['middleware' => 'security'], function(){
     Route::get('/payment', [CartController::class, 'showPaymentPage'])->name('payment');

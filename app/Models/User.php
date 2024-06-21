@@ -23,6 +23,7 @@ class User extends Authenticatable
         'email',
         'password',
         'profilepic',
+        'is_admin',
         'remember_token'
     ];
 
@@ -43,6 +44,7 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'is_admin' => 'boolean',
     ];
 
     public function cart()
