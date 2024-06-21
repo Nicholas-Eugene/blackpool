@@ -20,11 +20,9 @@ class IsAdmin
         if (Auth::check()) {
             if (Auth::user()->is_admin) {
                 return $next($request);
-            } else {
-                dd('User is not an admin');
             }
         } else {
-            dd('User is not authenticated');
+            return redirect('login');
         }
 
         return redirect('/')->with('error', 'You do not have access to this page.');

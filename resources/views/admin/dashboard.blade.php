@@ -1,17 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    
-</body>
-</html>
+@extends('layouts.admin')
+
 @section('content')
-<div class="container">
-    <h1>Admin Dashboard</h1>
-    <p>Welcome, {{ Auth::user()->username }}!</p>
-</div>
+    <h1>Welcome to the Admin Dashboard</h1>
+    <p>Select a section from the navigation bar to view details.</p>
 @endsection
