@@ -14,9 +14,9 @@
                 <div class="img-showcase">
                     @foreach ($historyItems as $history)
                         @if ($history->product_type == 'stick')
-                            <img src="{{ asset('storage/img/stick/' . $history->stick->image) }}" alt="{{ $history->stick->name }}">
+                            <img src="{{ asset('storage/img/stick/' . $history->stick->mainpic) }}" alt="{{ $history->stick->name }}">
                         @elseif ($history->product_type == 'foodandbeverage')
-                            <img src="{{ asset('storage/img/foodandbeverage/' . $history->foodAndBeverage->image) }}" alt="{{ $history->foodAndBeverage->name }}">
+                            <img src="{{ asset('storage/img/foodandbeverage/' . $history->foodAndBeverage->mainpic) }}" alt="{{ $history->foodAndBeverage->name }}">
                         @endif
                     @endforeach
                 </div>

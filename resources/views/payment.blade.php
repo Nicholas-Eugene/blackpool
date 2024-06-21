@@ -29,44 +29,49 @@
                 @if($cartItems->isEmpty())
                     <p>Your cart is empty. <a href="{{ url('/shop') }}">Go buy stuff in the shop!</a></p>
                 @else
+                    @foreach ($cartItems as $item)
+                        @php
+                            $productPrice = $item->product->price ?? 0;
+                            $totalItemPrice = $productPrice * $item->quantity;
+                            $subtotal += $totalItemPrice;
+                        @endphp
+                        <div class="cart-item" data-id="{{ $item->id }}">
+                            <p>Product: <span class="product-name">{{ $item->product->name ?? 'Unknown' }}</span></p>
+                            <p>Price: <span class="product-price">Rp. {{ number_format($productPrice, 0, ',', '.') }}</span></p>
+                            <div class="quantity-controls">
+                                <form action="{{ route('cart.decrement', $item->id) }}" method="POST" style="display: inline;">
+                                    @csrf
+                                    <button type="submit" class="decrement" data-id="{{ $item->id }}">-</button>
+                                </form>
+                                <input type="number" name="quantities[{{ $item->id }}]" value="{{ $item->quantity }}" min="1" readonly>
+                                <form action="{{ route('cart.increment', $item->id) }}" method="POST" style="display: inline;">
+                                    @csrf
+                                    <button type="submit" class="increment" data-id="{{ $item->id }}">+</button>
+                                </form>
+                            </div>
+                            <p>Total: <span class="item-total">Rp. {{ number_format($totalItemPrice, 0, ',', '.') }}</span></p>
+                        </div>
+                    @endforeach
+
+                    <div class="total-price">
+                        <table>
+                            <tr>
+                                <td>Subtotal</td>
+                                <td id="subtotal">Rp. {{ number_format($subtotal, 0, ',', '.') }}</td>
+                            </tr>
+                            <tr>
+                                <td>Admin Fee</td>
+                                <td>Rp. 10,000</td>
+                            </tr>
+                            <tr>
+                                <td>Total Price</td>
+                                <td id="total-price">Rp. {{ number_format($subtotal + 10000, 0, ',', '.') }}</td>
+                            </tr>
+                        </table>
+                    </div>
+
                     <form action="{{ route('checkout') }}" method="POST" id="checkout-form">
                         @csrf
-
-                        @foreach ($cartItems as $item)
-                            @php
-                                $productPrice = $item->product->price ?? 0;
-                                $totalItemPrice = $productPrice * $item->quantity;
-                                $subtotal += $totalItemPrice;
-                            @endphp
-                            <div class="cart-item" data-id="{{ $item->id }}">
-                                <p>Product: <span class="product-name">{{ $item->product->name ?? 'Unknown' }}</span></p>
-                                <p>Price: <span class="product-price">Rp. {{ number_format($productPrice, 0, ',', '.') }}</span></p>
-                                <div class="quantity-controls">
-                                    <button type="button" class="decrement" data-id="{{ $item->id }}">-</button>
-                                    <input type="number" name="quantities[{{ $item->id }}]" value="{{ $item->quantity }}" min="1" readonly>
-                                    <button type="button" class="increment" data-id="{{ $item->id }}">+</button>
-                                </div>
-                                <p>Total: <span class="item-total">Rp. {{ number_format($totalItemPrice, 0, ',', '.') }}</span></p>
-                            </div>
-                        @endforeach
-
-                        <div class="total-price">
-                            <table>
-                                <tr>
-                                    <td>Subtotal</td>
-                                    <td id="subtotal">Rp. {{ number_format($subtotal, 0, ',', '.') }}</td>
-                                </tr>
-                                <tr>
-                                    <td>Admin Fee</td>
-                                    <td>Rp. 10,000</td>
-                                </tr>
-                                <tr>
-                                    <td>Total Price</td>
-                                    <td id="total-price">Rp. {{ number_format($subtotal + 10000, 0, ',', '.') }}</td>
-                                </tr>
-                            </table>
-                        </div>
-
                         <div class="wrap">
                             <div class="select-menu">
                                 <span>Payment Method:</span>
@@ -83,6 +88,7 @@
                             </div>
                         </div>
                     </form>
+                    
                     <form action="{{ url('/clearCart') }}" method="POST">
                         @csrf
                         <button type="submit" class="btn btn-danger">Clear Cart</button>
@@ -92,48 +98,4 @@
         </div>
     </div>
 </div>
-@stop
-
-@section('scripts')
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-    const updateCart = (cartItemId, action) => {
-        fetch(`/cart/${action}/${cartItemId}`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-            }
-        }).then(response => response.json())
-          .then(data => {
-              if (data.success) {
-                  const cartItem = document.querySelector(`.cart-item[data-id='${cartItemId}']`);
-                  const quantityInput = cartItem.querySelector('input[name^="quantities"]');
-                  const itemTotal = cartItem.querySelector('.item-total');
-                  const subtotalElement = document.getElementById('subtotal');
-                  const totalPriceElement = document.getElementById('total-price');
-
-                  quantityInput.value = data.newQuantity;
-                  itemTotal.textContent = `Rp. ${new Intl.NumberFormat('id-ID').format(data.newItemTotal)}`;
-                  subtotalElement.textContent = `Rp. ${new Intl.NumberFormat('id-ID').format(data.newSubtotal)}`;
-                  totalPriceElement.textContent = `Rp. ${new Intl.NumberFormat('id-ID').format(data.newSubtotal + 15000)}`;
-              }
-          }).catch(error => console.error('Error:', error));
-    };
-
-    document.querySelectorAll('.decrement').forEach(button => {
-        button.addEventListener('click', function () {
-            const cartItemId = this.dataset.id;
-            updateCart(cartItemId, 'decrement');
-        });
-    });
-
-    document.querySelectorAll('.increment').forEach(button => {
-        button.addEventListener('click', function () {
-            const cartItemId = this.dataset.id;
-            updateCart(cartItemId, 'increment');
-        });
-    });
-});
-</script>
 @stop

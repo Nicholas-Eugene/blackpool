@@ -23,6 +23,7 @@ return new class extends Migration
             $table->integer('totalprice');
             $table->string('paymentmethod', 30);
             $table->timestamps();
+            $table->integer('quantity')->nullable();
         });
     }
 

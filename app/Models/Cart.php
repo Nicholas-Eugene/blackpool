@@ -32,7 +32,6 @@ class Cart extends Model
             case 'stick':
                 return $this->belongsTo(Stick::class, 'product_id');
             case 'food':
-            case 'drinks':
                 return $this->belongsTo(FoodAndBeverage::class, 'product_id');
             default:
                 return null; // or throw an exception if desired
