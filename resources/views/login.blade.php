@@ -141,7 +141,7 @@
 
                 <h1>Contact</h1>
                 <ol>
-                    <li>If you have questions or complaints, please contact us via email (mb_table@gmail.com) or the telephone number (+6285861821216).</li>
+                    <li>If you have questions or complaints, please contact us via email (blackpool@gmail.com) or the telephone number (+628778590889).</li>
                 </ol>
             </div>
         </div>

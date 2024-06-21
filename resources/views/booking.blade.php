@@ -36,17 +36,34 @@
     <hr class="one">
 
     <div class="box-container">
-        @foreach ($tables->sortBy('id') as $table)
-            @php
-                // Check if all times are booked
-                $allTimesBooked = count($table->booked_times) >= 11; // Assuming 11 time slots
-            @endphp
-            <div id="table-{{ $table->id }}" 
-                 class="box {{ $table->is_full || $allTimesBooked ? 'booked' : '' }}"
-                 style="{{ $table->is_full || $allTimesBooked ? 'background-color: gray;' : '' }}"
-                 {{ $table->is_full || $allTimesBooked ? '' : 'onclick=clickTable(this)' }}>
-                {{ sprintf('%02d', $table->id) }}
-            </div>
+        @php
+            $table_ids = [
+                '', '', 8,
+                '', '', 7,
+                16, 9, 6,
+                15, '', 5,
+                14, 10, 4,
+                13, '', 3,
+                12, 11, 2,
+                '', '', 1
+            ];
+        @endphp
+        @foreach ($table_ids as $table_id)
+            @if ($table_id)
+                @php
+                    $table = $tables->firstWhere('id', $table_id);
+                    // Check if all times are booked
+                    $allTimesBooked = count($table->booked_times) >= 11; // Assuming 11 time slots
+                @endphp
+                <div id="table-{{ $table->id }}" 
+                     class="box {{ $table->is_full || $allTimesBooked ? 'booked' : '' }}"
+                     style="{{ $table->is_full || $allTimesBooked ? 'background-color: gray;' : '' }}"
+                     {{ $table->is_full || $allTimesBooked ? '' : 'onclick=clickTable(this)' }}>
+                    {{ sprintf('%02d', $table->id) }}
+                </div>
+            @else
+                <div class="box" style="background-color: transparent; cursor: default;"></div>
+            @endif
         @endforeach
     </div>
 
@@ -122,7 +139,7 @@
             fetch(`/tables/${tableId}/bookings`)
                 .then(response => response.json())
                 .then(data => {
-                    console.log(data); // Ensure this logs the correct booking data
+                    console.log(data);
                     let allDisabled = true;
                     checkboxes.forEach(checkbox => {
                         const checkboxHour = checkbox.value.split(':')[0];

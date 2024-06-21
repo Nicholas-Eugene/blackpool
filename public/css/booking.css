@@ -25,15 +25,15 @@ html{
     margin-top: 8%;
 }
 
-.book .box-container{
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1.5rem;
-    grid: 5rem;
-    margin-top: 2%;
+.book .box-container {
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    column-gap: 4.5rem;
+    row-gap: 2rem;
     justify-content: center;
     align-items: center;
 }
+
 
 .book .box-container .right{
     display: flex;
@@ -43,10 +43,11 @@ html{
     margin-left: 10%;
 }
 
-.book .box-container .box{
+.book .box-container .box {
     border-radius: .3rem;
-    background-color: #4d84e2;
-    width: 6rem;
+    background-color: #136902;
+    width: 60px;
+    height: 120px;
     padding: 4rem 0;
     cursor: pointer;
     color: white;
@@ -56,7 +57,7 @@ html{
 }
 
 .scrollable-options {
-    max-height: 400px; /* Adjust the height as needed */
+    max-height: 400px;
     overflow-y: auto;
 }
 
