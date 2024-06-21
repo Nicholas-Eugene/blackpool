@@ -22,7 +22,7 @@ Route::group(['middleware' => 'security'], function(){
     // Go to history details
     Route::get('/historyBooking{id}', [HistoryBookingController::class, 'showBooking'])->name('history.booking');
     // Go Profile Page
-    Route::get('/profile', [UserController::class, 'showProfilePage']);
+    Route::get('/profile', [UserController::class, 'showProfilePage'])->name('profile');
     // Update user
     Route::post('/updateUser/{id}', [UserController::class, 'updateUser']);
     // Add To Cart

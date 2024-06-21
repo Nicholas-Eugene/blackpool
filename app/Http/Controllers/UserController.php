@@ -120,27 +120,34 @@ class UserController extends Controller
         return view('home');
     }
 
-    public function updateUser(Request $request){
-            $this->validate($request, [
-                'username' => 'required',
-                "profilepic" => "image",
-                "email" => "required|email|unique:users"
-            ]);
-
-            $user = User::find($request->route('id'));
-            $user->username = $request->username;
-            if ($_FILES['photo']['size'] != 0) {
-                $name = $request->file('photo')->getClientOriginalName();
-                $request->file('photo')->storeAs('public/img', $name);
-                $user->profilepic = $name;
-            }
-            $user->email = $request->email;
-            $user->password = Hash::make($request->password);
-
-            $user->save();
-
-            return redirect('/');
+    public function updateUser(Request $request, $id){
+        $this->validate($request, [
+            'username' => 'required',
+            'email' => 'required|email|unique:users,email,'.$id,
+            'photo' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+            'password' => 'required',
+        ]);
+    
+        $user = User::find($id);
+        $user->username = $request->username;
+        $user->email = $request->email;
+        $user->password = Hash::make($request->password);
+    
+        // Handle profile picture upload
+        if ($request->hasFile('photo')) {
+            $file = $request->file('photo');
+            $name = time() . '_' . $file->getClientOriginalName();
+            $filePath = 'public/img';
+            $file->storeAs($filePath, $name);
+            $user->profilepic = $name;
+        }
+    
+        $user->save();
+    
+        return redirect()->back()->with('success', 'Profile updated successfully.');
     }
+    
+    
 
     public function showAboutUsPage(){
         return view('aboutUs');
