@@ -63,41 +63,57 @@ class CartController extends Controller
     }
 
     public function checkout(Request $request)
-{
-    $cartItems = Cart::where('user_id', Auth::id())->get();
-    $historyIds = [];
+    {
+        $cartItems = Cart::where('user_id', Auth::id())->get();
+        $historyIds = [];
+    
+        foreach ($cartItems as $cart) {
+            $product = null;
+    
+            if ($cart->product_type === 'stick') {
+                $product = Stick::find($cart->product_id);
+            } elseif ($cart->product_type === 'food') {
+                $product = FoodAndBeverage::find($cart->product_id);
+            }
+    
+            if ($product) {
 
-    foreach ($cartItems as $cart) {
-        $product = null;
-
-        if ($cart->product_type === 'stick') {
-            $product = Stick::find($cart->product_id);
-        } elseif ($cart->product_type === 'food') {
-            $product = FoodAndBeverage::find($cart->product_id);
+                if ($product->stock < $cart->quantity) {
+                    return redirect()->back()->withErrors(['Not enough stock for ' . $product->name]);
+                }
+                
+                $data = [
+                    'user_id' => Auth::user()->id,
+                    'date' => now()->toDateString(),
+                    'time' => now()->toTimeString(),
+                    'totalprice' => $cart->quantity * $product->price,
+                    'paymentmethod' => $request->paymentmethod,
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                    'product_id' => $cart->product_id,
+                    'product_type' => $cart->product_type,
+                    'quantity' => $cart->quantity
+                ];
+    
+                $history = History::create($data);
+                $historyIds[] = $history->id;
+    
+                // Decrement the stock
+                if ($cart->product_type === 'stick' && $product->stock >= $cart->quantity) {
+                    $product->stock -= $cart->quantity;
+                    $product->save();
+                } elseif ($cart->product_type === 'food' && $product->stock >= $cart->quantity) {
+                    $product->stock -= $cart->quantity;
+                    $product->save();
+                }
+    
+                $cart->delete();
+            }
         }
-
-        if ($product) {
-            $data = [
-                'user_id' => Auth::user()->id,
-                'date' => now()->toDateString(),
-                'time' => now()->toTimeString(),
-                'totalprice' => $cart->quantity * $product->price, // Ensure this is set correctly
-                'paymentmethod' => $request->paymentmethod,
-                'created_at' => now(),
-                'updated_at' => now(),
-                'product_id' => $cart->product_id,
-                'product_type' => $cart->product_type,
-                'quantity' => $cart->quantity
-            ];
-
-            $history = History::create($data);
-            $historyIds[] = $history->id;
-            $cart->delete();
-        }
+    
+        return redirect()->route('historydetail', ['historyIds' => implode(',', $historyIds)]);
     }
-
-    return redirect()->route('historydetail', ['historyIds' => implode(',', $historyIds)]);
-}
+    
 
     
     public function showHistoryDetailPage($historyIds)
