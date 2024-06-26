@@ -1,81 +1,90 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800&display=swap");
 
-
 * {
     font-family: "Poppins", sans-serif;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     text-transform: capitalize;
-    outline: none; border: none;
+    outline: none;
+    border: none;
     text-decoration: none;
     transition: all .2s linear;
 }
 
-html{
+html {
     font-size: 62.5%;
     overflow-x: hidden;
     scroll-behavior: smooth;
+    background-color: #121212; /* Warna latar belakang gelap */
+    color: #e0e0e0; /* Warna teks terang */
 }
 
 /* content */
 
-body{
+body {
     line-height: 1.5;
+    background-color: #121212; /* Warna latar belakang gelap */
+    color: #e0e0e0; /* Warna teks terang */
 }
-.card-wrapper{
+
+.card-wrapper {
     padding: 5%;
     padding-bottom: 0;
     min-height: 60vh;
 }
 
-img{
+img {
     width: 100%;
     display: block;
 }
 
-.img-display{
+.img-display {
     overflow: hidden;
     height: 100%;
 }
-.img-showcase{
+
+.img-showcase {
     display: flex;
     width: 100%;
     height: 100%;
     transition: all 0.5s ease;
 }
-.img-showcase img{
+
+.img-showcase img {
     min-width: 100%;
 }
 
-.product-content{
+.product-content {
     margin: auto;
     width: 100%;
     height: 80%;
     padding: 10px;
 }
 
-.product-title{
+.product-title {
     font-size: 2.5rem;
     text-transform: capitalize;
     font-weight: 500;
     position: relative;
-    color: #12263a;
+    color: #ffffff; /* Warna teks terang */
 }
 
-.main-header{
+.main-header {
     font-size: 2.5rem;
     opacity: 0.8;
     margin-top: 8%;
-    color: black;
+    color: #ffffff; /* Warna teks terang */
     text-align: center;
     font-weight: 800;
 }
-.product-detail{
+
+.product-detail {
     margin: 1rem 0;
     font-size: 1.4rem;
 }
-.product-detail p{
+
+.product-detail p {
     margin: 0;
     list-style: none;
     background-size: 18px;
@@ -83,11 +92,12 @@ img{
     font-weight: 600;
     opacity: 0.9;
 }
-.product-detail p span{
+
+.product-detail p span {
     font-weight: 400;
 }
 
-.purchase-info .btn{
+.purchase-info .btn {
     border-radius: 25px;
     text-align: center;
     padding: 0.5rem 2rem;
@@ -95,57 +105,60 @@ img{
     outline: 0;
     margin-top: 1.4rem;
     cursor: pointer;
-    color: #fff;
+    color: #121212; /* Warna teks gelap */
     background: #5995fd;
     font-size: 1.7rem;
 }
 
-.purchase-info .btn:hover{
+.purchase-info .btn:hover {
     background: #4d84e2;
 }
 
-.total-price{
+.total-price {
     display: flex;
     margin-top: 5%;
     font-size: 1.4rem;
 }
 
-.total-price table{
+.total-price table {
     border-top: 3px solid #5995fd;
     width: 100%;
     /* max-width: 350px; */
 }
 
-td{
+td {
     padding: 1rem 0;
 }
 
-td:last-child{
-   text-align: right;
-   font-weight: 600;
-}
-
-td:first-child{
+td:last-child {
+    text-align: right;
     font-weight: 600;
 }
 
-.wrap{
+td:first-child {
+    font-weight: 600;
+}
+
+.wrap {
     display: flex;
 }
 
-.select-menu{
+.select-menu {
     margin-top: 3%;
     margin-right: 5%;
     width: 280px;
 }
-.select-menu span{
+
+.select-menu span {
     font-size: 1.5rem;
     margin-right: 1.5rem;
 }
-.select-menu .select-btn{
+
+.select-menu .select-btn {
     display: flex;
     height: 35px;
-    background: #fff;
+    background: #1e1e1e; /* Warna latar belakang gelap */
+    color: #e0e0e0; /* Warna teks terang */
     padding: 2px;
     font-size: 1.7rem;
     font-weight: 400;
@@ -155,85 +168,99 @@ td:first-child{
     justify-content: space-between;
     box-shadow: 0 0 5px rgba(0,0,0,0.1);
 }
-.select-btn i{
+
+.select-btn i {
     font-size: 1.5rem;
     transition: 0.3s;
 }
-.select-menu.active .select-btn i{
+
+.select-menu.active .select-btn i {
     transform: rotate(-180deg);
 }
-.select-menu .options{
+
+.select-menu .options {
     position: relative;
     padding: 2px;
     margin-top: 10px;
     border-radius: 8px;
-    background: #fff;
+    background: #1e1e1e; /* Warna latar belakang gelap */
     box-shadow: 0 0 3px rgba(0,0,0,0.1);
     display: none;
 }
-.select-menu.active .options{
+
+.select-menu.active .options {
     display: block;
 }
-.options .option{
+
+.options .option {
     display: flex;
     height: 35px;
     cursor: pointer;
     padding: 0 5px;
     border-radius: 8px;
     align-items: center;
-    background: #fff;
+    background: #1e1e1e; /* Warna latar belakang gelap */
+    color: #e0e0e0; /* Warna teks terang */
 }
-.options .option:hover{
-    background: #F2F2F2;
+
+.options .option:hover {
+    background: #333333; /* Warna latar belakang gelap */
 }
-.option i{
+
+.option i {
     font-size: 1.5rem;
     margin-right: 12px;
 }
-.option .option-text{
+
+.option .option-text {
     font-size: 1.5rem;
-    color: #333;
-}
-.error{
-    font-size: 1.5rem;
+    color: #e0e0e0; /* Warna teks terang */
 }
 
+.error {
+    font-size: 1.5rem;
+    color: #ff4d4d; /* Warna teks error */
+}
 
-@media (min-width: 992px){
-    .card{
+@media (min-width: 992px) {
+    .card {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
         grid-gap: 1.5rem;
     }
-    .card-wrapper{
+
+    .card-wrapper {
         margin: 2.3%;
         margin-bottom: 4%;
         display: flex;
         justify-content: center;
         align-items: center;
     }
-    .product-imgs{
+
+    .product-imgs {
         display: flex;
         flex-direction: column;
         justify-content: center;
         width: 90%;
     }
-    .product-content{
+
+    .product-content {
         padding-top: 0;
     }
 }
 
-@media (max-width:1200px){
-    html{
+@media (max-width:1200px) {
+    html {
         font-size: 55%;
     }
 }
 
-@media (max-width:450px){
-    html{
+@media (max-width:450px) {
+    html {
         font-size: 50%;
     }
-    .card-wrapper{
+
+    .card-wrapper {
         margin: 1.5%;
     }
 }
@@ -252,6 +279,7 @@ td:first-child{
     font-size: 1.2rem;
     font-weight: bold;
     margin: 0 5px;
+    color: #e0e0e0; /* Warna teks terang */
 }
 
 .quantity-controls input {
@@ -260,10 +288,32 @@ td:first-child{
     border: 1px solid #ccc;
     font-size: 1.2rem;
     font-weight: bold;
+    background: #1e1e1e; /* Warna latar belakang gelap */
+    color: #e0e0e0; /* Warna teks terang */
 }
 
 .product-detail {
     max-height: 300px;
     overflow-y: auto;
     margin-bottom: 1rem;
+    background: #1e1e1e; /* Warna latar belakang gelap */
+    color: #e0e0e0; /* Warna teks terang */
+}
+
+
+.clear-cart-btn {
+    background: #ff4d4d; 
+    color: #ffffff; 
+    border-radius: 0; 
+    text-align: center;
+    padding: 0.5rem 2rem;
+    width: 100%;
+    outline: 0;
+    margin-top: 1.4rem;
+    cursor: pointer;
+    font-size: 1.7rem;
+}
+
+.clear-cart-btn:hover {
+    background: #e64444; 
 }

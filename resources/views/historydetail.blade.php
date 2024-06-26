@@ -11,18 +11,13 @@
         <!-- card left -->
         <div class="product-imgs">
             <div class="img-display">
-                <div class="img-showcase">
-                    @foreach ($historyItems as $history)
-                        @if ($history->product_type == 'stick')
-                            <img src="{{ asset('storage/img/stick/' . $history->stick->mainpic) }}" alt="{{ $history->stick->name }}">
-                        @elseif ($history->product_type == 'foodandbeverage')
-                            <img src="{{ asset('storage/img/foodandbeverage/' . $history->foodAndBeverage->mainpic) }}" alt="{{ $history->foodAndBeverage->name }}">
-                        @endif
-                    @endforeach
-                </div>
+            <div class="img-showcase">
+                @foreach ($historyItems as $history)
+                    <img src="{{ asset('storage/img/success.png') }}" alt="Success">
+                @endforeach
+            </div>
             </div>
         </div>
-
         <!-- card right -->
         <div class="product-content">
             @foreach ($historyItems as $history)

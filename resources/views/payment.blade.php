@@ -12,7 +12,7 @@
         <div class="product-imgs">
             <div class="img-display">
                 <div class="img-showcase">
-                    <img src="{{ url('storage/img/payment.jpg') }}" alt="Payment">
+                    <img src="{{ url('storage/img/payment.png') }}" alt="Payment">
                 </div>
             </div>
         </div>
@@ -88,10 +88,9 @@
                             </div>
                         </div>
                     </form>
-                    
                     <form action="{{ url('/clearCart') }}" method="POST">
                         @csrf
-                        <button type="submit" class="btn btn-danger">Clear Cart</button>
+                        <button type="submit" class="btn clear-cart-btn">Clear Cart</button>
                     </form>
                 @endif
             </div>

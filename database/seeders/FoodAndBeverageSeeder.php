@@ -48,7 +48,7 @@ class FoodAndBeverageSeeder extends Seeder
             'pic2' => 'chocolate_milkshake_1.jpg',
             'pic3' => 'chocolate_milkshake_2.jpg',
             'pic4' => 'chocolate_milkshake_3.jpg',
-            'type' => 'drinks'  // Setting type to drinks
+            'type' => 'food'  // Setting type to drinks
         ]);
 
         DB::table('foodandbeverage')->insert([
@@ -60,7 +60,7 @@ class FoodAndBeverageSeeder extends Seeder
             'pic2' => 'lemonade_1.jpg',
             'pic3' => 'lemonade_2.jpg',
             'pic4' => 'lemonade_3.jpg',
-            'type' => 'drinks'  // Setting type to drinks
+            'type' => 'food'  // Setting type to drinks
         ]);
 
         DB::table('foodandbeverage')->insert([

@@ -12,15 +12,12 @@
         </div>
     @endif
 
-    <div class="row mb-4">
-        <div class="col-md-6">
-            <a href="{{ route('stick') }}" class="btn btn-primary btn-lg btn-block {{ $section == 'stick' ? 'active' : '' }}">Stick</a>
-        </div>
-        <div class="col-md-6">
-            <a href="{{ route('foodandbeverage') }}" class="btn btn-secondary btn-lg btn-block {{ $section == 'foodandbeverage' ? 'active' : '' }}">Food and Beverages</a>
-        </div>
+    <!-- Button Group -->
+    <div class="button-group mb-4">
+        <a href="{{ route('stick') }}" class="btn btn-primary btn-lg {{ $section == 'stick' ? 'active' : '' }}">Stick</a>
+        <a href="{{ route('foodandbeverage') }}" class="btn btn-secondary btn-lg {{ $section == 'foodandbeverage' ? 'active' : '' }}">Food and Beverages</a>
     </div>
-    
+
     @if($section == 'stick')
         <h2>Sticks</h2>
         <section class="pack" id="stick">
@@ -41,9 +38,6 @@
                         </div>
                     </div>
                 @endforeach
-            </div>
-            
-                
             </div>
         </section>
     @elseif($section == 'foodandbeverage')
@@ -67,9 +61,15 @@
                     </div>
                 @endforeach
             </div>
-                
-            </div>
         </section>
     @endif
 </div>
 @stop
+
+<style>
+.button-group {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+</style>

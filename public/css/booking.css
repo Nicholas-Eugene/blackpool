@@ -1,26 +1,39 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800&display=swap");
 
-
 * {
     font-family: "Poppins", sans-serif;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     text-transform: capitalize;
-    outline: none; border: none;
+    outline: none;
+    border: none;
     text-decoration: none;
     transition: all .2s linear;
+    color: #ffffff;
 }
 
-html{
+html {
     font-size: 62.5%;
     overflow-x: hidden;
     scroll-behavior: smooth;
+    background-color: #121212;
+}
+
+body {
+    background-color: #121212;
+    color: #ffffff;
+}
+
+h1 {
+    text-align: center;
+    font-size: 2rem;
+    color: #ffffff;
 }
 
 /* packages */
 
-.book{
+.book {
     margin: 2%;
     margin-top: 8%;
 }
@@ -34,8 +47,7 @@ html{
     align-items: center;
 }
 
-
-.book .box-container .right{
+.book .box-container .right {
     display: flex;
     flex-wrap: wrap;
     gap: 1.5rem;
@@ -45,7 +57,7 @@ html{
 
 .book .box-container .box {
     border-radius: .3rem;
-    background-color: #136902;
+    background-color: #007bff; /* Changed to blue */
     width: 60px;
     height: 120px;
     padding: 4rem 0;
@@ -54,27 +66,31 @@ html{
     text-align: center;
     font-size: 2rem;
     font-weight: 600;
+    transition: transform 0.3s, background-color 0.3s;
+}
+
+.book .box-container .box:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+    transform: scale(1.1);
 }
 
 .scrollable-options {
     max-height: 400px;
     overflow-y: auto;
+    background-color: #1e1e1e;
+    color: #ffffff;
 }
 
 .Information {
     position: absolute;
-    background-color: white;
+    background-color: #1e1e1e;
     border: 1px solid #ccc;
     padding: 10px;
     z-index: 1000;
+    color: #ffffff;
 }
 
-h1{
-    text-align: center;
-    font-size: 2rem;
-}
-
-.payment{
+.payment {
     display: flex;
     margin-top: 1.5rem;
     gap: 65%;
@@ -87,6 +103,7 @@ hr {
     overflow: hidden;
     border-style: inset;
     border-width: 1px;
+    border-color: #ffffff;
 }
 
 .one {
@@ -94,21 +111,22 @@ hr {
     margin-bottom: 6rem;
 }
 
-.desc{
+.desc {
     margin-bottom: 1rem;
 }
 
-.desc p{
+.desc p {
     font-size: 1.3rem;
+    color: #ffffff;
 }
 
-.payment p{
+.payment p {
     font-size: 1.7rem;
     font-weight: 600;
     align-self: center;
 }
 
-.btn{
+.btn {
     display: inline-block;
     margin-top: 1rem;
     background: #5995fd;
@@ -117,158 +135,158 @@ hr {
     cursor: pointer;
     font-size: 1.7rem;
     border-radius: 5px;
+    transition: background 0.3s, transform 0.3s;
 }
 
-.btn:hover{
+.btn:hover {
     background: #4d84e2;
+    transform: scale(1.1);
 }
 
 /* media queries */
 
-@media (max-width:1200px){
-    html{
+@media (max-width:1200px) {
+    html {
         font-size: 55%;
     }
 }
 
-@media (max-width:991px){
-    .pack{
+@media (max-width:991px) {
+    .pack {
         margin: 5%;
         margin-top: 20%;
     }
 
-    .payment{
+    .payment {
         gap: 50%;
     }
 
-    .book{
+    .book {
         margin-top: 13%;
     }
 }
 
-@media (max-width:600px){
-    .book .box-container .right{
+@media (max-width:600px) {
+    .book .box-container .right {
         gap: 1rem;
         grid: .2rem;
         margin-left: 5%;
     }
 
-    .book .box-container{
+    .book .box-container {
         gap: 1rem;
         grid: .2rem;
     }
 
-    .book .box-container .box{
+    .book .box-container .box {
         width: 6rem;
         padding: 4rem 0;
         font-size: 2rem;
     }
 
-    .book{
+    .book {
         margin-top: 15%;
     }
 }
 
-@media (max-width:550px){
-    .book .box-container .right{
+@media (max-width:550px) {
+    .book .box-container .right {
         gap: 1rem;
         grid: .2rem;
         margin-left: 4%;
     }
 
-    .book .box-container .box{
+    .book .box-container .box {
         width: 5rem;
         padding: 3rem 0;
         font-size: 2rem;
     }
 
-    .book{
+    .book {
         margin-top: 17%;
     }
 
-    .payment{
+    .payment {
         gap: 40%;
     }
 }
 
-@media (max-width:465px){
-    html{
+@media (max-width:465px) {
+    html {
         font-size: 50%;
     }
 
-    .book .box-container .right{
+    .book .box-container .right {
         gap: 1rem;
         grid: .2rem;
         margin-left: 4%;
     }
 
-    .book .box-container .box{
+    .book .box-container .box {
         width: 5rem;
         padding: 3rem 0;
         font-size: 2rem;
     }
 
-    .book{
+    .book {
         margin-top: 17%;
     }
 
-    .payment{
+    .payment {
         gap: 40%;
     }
 }
 
-@media (max-width:425px){
-
-    .book .box-container .right{
+@media (max-width:425px) {
+    .book .box-container .right {
         gap: .5rem;
         grid: .2rem;
         margin-left: 3%;
     }
 
-    .book .box-container{
+    .book .box-container {
         gap: .5rem;
         grid: .2rem;
     }
 
-    .book .box-container .box{
+    .book .box-container .box {
         width: 5rem;
         padding: 3rem 0;
         font-size: 2rem;
     }
 
-    .book{
+    .book {
         margin-top: 20%;
     }
 
-    .payment{
+    .payment {
         gap: 30%;
     }
 }
 
-@media (max-width:375px){
-
-    .book .box-container .right{
+@media (max-width:375px) {
+    .book .box-container .right {
         gap: .5rem;
         grid: .2rem;
         margin-left: 4%;
     }
 
-    .book .box-container{
+    .book .box-container {
         gap: .5rem;
         grid: .2rem;
     }
 
-    .book .box-container .box{
+    .book .box-container .box {
         width: 4.5rem;
         padding: 2.5rem 0;
         font-size: 2rem;
     }
 
-    .book{
+    .book {
         margin-top: 20%;
     }
 
-    .payment{
+    .payment {
         gap: 30%;
     }
 }
