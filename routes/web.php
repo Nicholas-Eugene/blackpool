@@ -57,12 +57,6 @@ Route::middleware(['auth', 'is_admin'])->group(function () {
     Route::get('/stick', [ShopController::class, 'showSticks'])->name('stick');
     // Halaman daftar makanan dan minuman
     Route::get('/foodandbeverage', [ShopController::class, 'showFoodAndBeverage'])->name('foodandbeverage');
-    // Halaman pencarian produk
-    Route::get('/search', [ShopController::class, 'searchProduct'])->name('searchProduct');
-    // Halaman detail stick
-    Route::get('/stickDetail/{id}', [ShopController::class, 'showStickDetail'])->name('stickDetail');
-    // Halaman detail makanan dan minuman
-    Route::get('/foodDetail/{id}', [ShopController::class, 'showFoodAndBeverageDetail'])->name('foodDetail');
 });
 
 // Kelompok rute yang memerlukan middleware security
@@ -124,6 +118,8 @@ Route::get('/tables/{tableId}/bookings', [BookingController::class, 'getTableBoo
 // Rute keranjang
 Route::resource('carts', CartController::class);
 
+// Pencarian Produk
+Route::get('/search', [ShopController::class, 'searchProduct'])->name('searchProduct');
 // Rute toko - akses publik
 // Halaman toko
 Route::get('/shop', [ShopController::class, 'showShopMenu'])->name('shop');

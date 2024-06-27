@@ -34,18 +34,6 @@ class ShopController extends Controller
         return view('shop')->with(['stick' => $stick, 'foodandbeverage' => $foodandbeverage, 'section' => 'search']);
     }
 
-    // Fungsi untuk menampilkan detail produk stick berdasarkan ID
-    public function showStickDetail(Request $request){
-        $stick = Stick::find($request->route('id'));
-        return view('stickdetail')->with('stick', $stick);
-    }
-
-    // Fungsi untuk menampilkan detail produk makanan dan minuman berdasarkan ID
-    public function showFoodAndBeverageDetail(Request $request){
-        $foodandbeverage = FoodAndBeverage::find($request->route('id'));
-        return view('foodandbeveragedetail')->with('foodandbeverage', $foodandbeverage);
-    }
-
     // Fungsi untuk menampilkan halaman pemesanan stick
     public function showBookingStick(Request $request){
         $stick = Stick::find($request->route('id'));
