@@ -25,8 +25,8 @@ class ShopController extends Controller
 
     public function searchProduct(Request $request){
         $query = $request->search;
-        $stick = Stick::where('name', 'like', "%$query%")->paginate(6)->appends(['search' => $query]);
-        $foodandbeverage = FoodAndBeverage::where('name', 'like', "%$query%")->paginate(6)->appends(['search' => $query]);
+        $stick = Stick::where('name', 'like', "%$query%")->get();
+        $foodandbeverage = FoodAndBeverage::where('name', 'like', "%$query%")->get();
         return view('shop')->with(['stick' => $stick, 'foodandbeverage' => $foodandbeverage, 'section' => 'search']);
     }
 

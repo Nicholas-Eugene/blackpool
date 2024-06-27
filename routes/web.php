@@ -31,6 +31,13 @@ Route::middleware(['auth', 'is_admin'])->group(function () {
     Route::get('/admin/users/{id}/edit', [AdminController::class, 'editUser'])->name('admin.editUser');
     Route::put('/admin/users/{id}', [AdminController::class, 'updateUser'])->name('admin.updateUser');
     Route::delete('/admin/users/{id}', [AdminController::class, 'deleteUser'])->name('admin.deleteUser');
+
+    Route::get('/', [ShopController::class, 'showShopMenu'])->name('shop');
+    Route::get('/stick', [ShopController::class, 'showSticks'])->name('stick');
+    Route::get('/foodandbeverage', [ShopController::class, 'showFoodAndBeverage'])->name('foodandbeverage');
+    Route::get('/search', [ShopController::class, 'searchProduct'])->name('searchProduct');
+    Route::get('/stickDetail/{id}', [ShopController::class, 'showStickDetail'])->name('stickDetail');
+    Route::get('/foodDetail/{id}', [ShopController::class, 'showFoodAndBeverageDetail'])->name('foodDetail');
 });
 
 // Group routes that require security middleware
