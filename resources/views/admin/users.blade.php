@@ -8,7 +8,6 @@
                 <th>ID</th>
                 <th>Username</th>
                 <th>Email</th>
-                <th>Profile Pic</th>
                 <th>Admin</th>
                 <th>Actions</th>
             </tr>
@@ -19,7 +18,6 @@
                 <td>{{ $user->id }}</td>
                 <td>{{ $user->username }}</td>
                 <td>{{ $user->email }}</td>
-                <td><img src="{{ $user->profilepic }}" alt="Profile Pic" width="50" height="50"></td>
                 <td>{{ $user->is_admin ? 'Yes' : 'No' }}</td>
                 <td>
                     <a href="{{ route('admin.editUser', $user->id) }}" class="btn btn-warning">Edit</a>

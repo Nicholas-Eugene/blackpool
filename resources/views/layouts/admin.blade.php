@@ -29,6 +29,11 @@
                         <a class="nav-link" href="{{ route('admin.sticks') }}">Sticks</a>
                     </li>
                 </ul>
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="btn btn-secondary" href='/'> Back to Home </a>
+                    </li>
+                </ul>
             </div>
         </nav>
         <div class="content mt-4">
