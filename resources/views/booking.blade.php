@@ -2,33 +2,6 @@
 
 @section('css')
     <link rel="stylesheet" href="{{ url('css/booking.css') }}" />
-    <style>
-        .floating-message {
-            position: fixed;
-            top: 15%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            padding: 20px 40px;
-            background-color: #f0f0f0;
-            border: 1px solid #ccc;
-            border-radius: 10px;
-            display: none;
-            z-index: 1000;
-            font-size: 18px;
-            text-align: center;
-            max-width: 60%;
-        }
-
-        .floating-message.success {
-            background-color: #d4edda;
-            border-color: #c3e6cb;
-        }
-
-        .floating-message.error {
-            background-color: #f8d7da;
-            border-color: #f5c6cb;
-        }
-    </style>
 @stop
 
 @section('content')
@@ -37,16 +10,11 @@
 
     <div class="box-container">
         @php
-            $table_ids = [
-                '', '', 8,
-                '', '', 7,
-                16, 9, 6,
-                15, '', 5,
-                14, 10, 4,
-                13, '', 3,
-                12, 11, 2,
-                '', '', 1
-            ];
+        $table_ids = [
+            '', 12, 13, 14, 15, 16, '', '',
+            '', 11, '', 10, '',  9, '', '',
+             1,   2,  3,  4,  5,  6,  7,  8,
+        ];
         @endphp
         @foreach ($table_ids as $table_id)
             @if ($table_id)
@@ -69,24 +37,24 @@
 
     <hr>
     <div class="payment scrollable-container">
-    <form action="{{ route('booking.store') }}" method="POST">
-        @csrf
-        <div class="desc">
-            <p>Select Time Slot(s):</p>
-            <div class="scrollable-options" id="timeSlots">
-                @for ($hour = 11; $hour <= 21; $hour++)
-                    <label>
-                        <input type="checkbox" name="start_times[]" value="{{ str_pad($hour, 2, '0', STR_PAD_LEFT) }}:00">
-                        {{ str_pad($hour, 2, '0', STR_PAD_LEFT) }}:00 - {{ str_pad($hour + 1, 2, '0', STR_PAD_LEFT) }}:00
-                    </label><br>
-                @endfor
+        <form action="{{ route('booking.store') }}" method="POST">
+            @csrf
+            <div class="desc">
+                <p>Select Time Slot(s):</p>
+                <div class="scrollable-options" id="timeSlots">
+                    @for ($hour = 11; $hour <= 21; $hour++)
+                        <label>
+                            <input type="checkbox" name="start_times[]" value="{{ str_pad($hour, 2, '0', STR_PAD_LEFT) }}:00">
+                            {{ str_pad($hour, 2, '0', STR_PAD_LEFT) }}:00 - {{ str_pad($hour + 1, 2, '0', STR_PAD_LEFT) }}:00
+                        </label><br>
+                    @endfor
+                </div>
             </div>
-        </div>
-        <p id="totalprice">Total: Rp. 0</p>
-        <input type="hidden" value="0" id="ttlprice" name="totalprice"/>
-        <input type="hidden" id="tblnumber" name="table_ids"/>
-        <input type="submit" value="Checkout" class="btn"/>
-    </form>
+            <p id="totalprice">Total: Rp. 0</p>
+            <input type="hidden" value="0" id="ttlprice" name="totalprice"/>
+            <input type="hidden" id="tblnumber" name="table_ids"/>
+            <input type="submit" value="Checkout" class="btn"/>
+        </form>
     </div>
 </section>
 
