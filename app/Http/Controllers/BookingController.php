@@ -11,16 +11,18 @@ use Illuminate\Support\Facades\Auth;
 
 class BookingController extends Controller
 {
+    // Middleware untuk memastikan pengguna telah terautentikasi
     public function __construct()
     {
         $this->middleware('auth');
     }
 
+    // Menampilkan halaman booking dengan semua tabel dan waktu yang sudah dibooking
     public function index()
     {
-        $tables = Table::all(); // Retrieve all tables or adjust the query as needed
+        $tables = Table::all(); // Mengambil semua tabel
 
-        // Get bookings for each table
+        // Mendapatkan booking untuk setiap tabel
         foreach ($tables as $table) {
             $bookings = Booking::where('table_id', $table->id)
                 ->whereDate('date', now()->toDateString())
@@ -37,6 +39,7 @@ class BookingController extends Controller
         return view('booking', compact('tables'));
     }
 
+    // Menyimpan booking ke dalam database
     public function store(Request $request)
     {
         $validatedData = $request->validate([
@@ -56,7 +59,7 @@ class BookingController extends Controller
                 'user_id' => Auth::id(),
                 'table_id' => $tableId,
                 'date' => now()->toDateString(),
-                'time' => json_encode($validatedData['start_times']), // Store the times as a JSON string
+                'time' => json_encode($validatedData['start_times']), // Menyimpan waktu sebagai string JSON
                 'totalprice' => $totalPrice,
                 'status' => 'pending',
             ]);
@@ -65,16 +68,17 @@ class BookingController extends Controller
         if ($cart) {
             return redirect()->route('payment.page', ['cartId' => $cart->id]);
         } else {
-            return redirect()->route('booking.index')->withErrors('Failed to create cart.');
+            return redirect()->route('booking.index')->withErrors('Gagal membuat cart.');
         }
     }
 
+    // Mengonfirmasi pesanan dan memindahkannya ke dalam riwayat booking
     public function confirmOrder(Request $request, $cartId)
     {
         $cart = CartBooking::findOrFail($cartId);
 
         if ($cart && $cart->status == 'pending') {
-            // Check if the selected time slots are available
+            // Memeriksa apakah slot waktu yang dipilih tersedia
             $selectedTimes = json_decode($cart->time);
             foreach ($selectedTimes as $selectedTime) {
                 $existingBooking = Booking::where('table_id', $cart->table_id)
@@ -83,12 +87,12 @@ class BookingController extends Controller
                     ->exists();
 
                 if ($existingBooking) {
-                    return redirect()->route('booking.index')->withErrors('Selected time slot is not available. Please choose another time.');
+                    return redirect()->route('booking.index')->withErrors('Slot waktu yang dipilih tidak tersedia. Silakan pilih waktu lain.');
                 }
             }
 
-             // If all selected times are available, create booking
-             $booking = Booking::create([
+            // Jika semua waktu yang dipilih tersedia, buat booking
+            $booking = Booking::create([
                 'user_id' => Auth::id(),
                 'table_id' => $cart->table_id,
                 'date' => $cart->date,
@@ -98,32 +102,33 @@ class BookingController extends Controller
             ]);
 
             if ($booking) {
-                // Create history record
+                // Buat catatan riwayat
                 HistoryBooking::create([
                     'table_id' => $cart->table_id,
                     'user_id' => Auth::id(),
-                    'booking_start' => $cart->date . ' ' . json_decode($cart->time)[0], // assuming start time is the first in the array
-                    'time' => $cart->time, // Store the times as a JSON string
+                    'booking_start' => $cart->date . ' ' . json_decode($cart->time)[0], // asumsi waktu mulai adalah yang pertama di array
+                    'time' => $cart->time, // Menyimpan waktu sebagai string JSON
                     'total_price' => $cart->totalprice,
                     'payment_method' => $request->input('paymentmethod'),
                 ]);
 
                 $cart->delete();
-                return redirect()->route('booking.index')->with('success', 'Booking confirmed and added to history.');
+                return redirect()->route('booking.index')->with('success', 'Booking dikonfirmasi dan ditambahkan ke riwayat.');
             }
         }
         
         $cart->delete();
-        return redirect()->route('payment.page', ['cartId' => $cartId])->withErrors('Failed to confirm order.');
+        return redirect()->route('payment.page', ['cartId' => $cartId])->withErrors('Gagal mengonfirmasi pesanan.');
     }
 
+    // Mendapatkan waktu booking untuk tabel tertentu
     public function getTableBookings($tableId)
     {
         $bookings = Booking::where('table_id', $tableId)
             ->whereDate('date', now()->toDateString())
             ->get(['time']);
         
-        // Make sure the 'time' field contains actual times in your database
+        // Memastikan field 'time' berisi waktu yang ada di database
         $bookedTimes = [];
         foreach ($bookings as $booking) {
             $bookedTimes = array_merge($bookedTimes, json_decode($booking->time, true));
@@ -132,6 +137,7 @@ class BookingController extends Controller
         return response()->json(['bookings' => $bookedTimes]);
     }
 
+    // Menampilkan halaman pembayaran untuk cart tertentu
     public function showPaymentPage($cartId)
     {
         $cart = CartBooking::findOrFail($cartId);
