@@ -25,17 +25,26 @@
             <a href="/aboutUs" class="{{ request()->is('aboutUs') ? 'active' : '' }}">About Us</a>
             <a href="/booking" class="{{ request()->is('booking') ? 'active' : '' }}">Booking</a>
             @if (Auth::check())
-            <a href="/history" class="{{ request()->is('history') ? 'active' : '' }}">History</a>
+                <div class="dropdown">
+                    <a href="javascript:void(0)" class="dropbtn {{ request()->is('history') || request()->is('historyBooking') ? 'active' : '' }}">History</a>
+                    <div class="dropdown-content">
+                        <a href="/history" class="{{ request()->is('history') ? 'active' : '' }}">Stick & FNB</a>
+                        <a href="/historyBooking" class="{{ request()->is('historyBooking') ? 'active' : '' }}">Table</a>
+                    </div>
+                </div>
             @endif
-            <a href="/shop"> Shop</a>
+            <a href="/shop">Shop</a>
         </nav>
 
         <div class="icons">
             @if (Auth::check())
-            <a href="/profile"><i class="fas fa-user" id="profile-btn"></i></a>
-            <a href="/payment"><i class="fas fa-shopping-cart" id="cart-btn"></i></a>
+                <a href="/profile"><i class="fas fa-user" id="profile-btn"></i></a>
+                <a href="/payment"><i class="fas fa-shopping-cart" id="cart-btn"></i></a>
+                @if (Auth::user()->is_admin)
+                    <a href="/admin" class="btn-admin {{ request()->is('admin') ? 'active' : '' }}">Admin</a>
+                @endif
             @else
-            <a class="btn2" href="/login">Login</a>
+                <a class="btn2" href="/login">Login</a>
             @endif
         </div>
     </header>

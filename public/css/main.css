@@ -1,13 +1,12 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800&display=swap");
 
-
 * {
     font-family: "Poppins", sans-serif;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     text-transform: capitalize;
-    outline: none; 
+    outline: none;
     border: none;
     text-decoration: none;
     transition: all 0.2s linear;
@@ -23,8 +22,8 @@ html {
 
 header {
     position: fixed;
-    top: 0;     
-    left: 0; 
+    top: 0;
+    left: 0;
     right: 0;
     z-index: 1000;
     display: flex;
@@ -32,7 +31,7 @@ header {
     justify-content: space-between;
     padding: 2rem 9%;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
-    transition: background-color 0.3s ease-in-out; 
+    transition: background-color 0.3s ease-in-out;
 }
 
 header::before {
@@ -42,8 +41,8 @@ header::before {
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0, 0, 0, 0.7); 
-    z-index: -1; 
+    background: rgba(0, 0, 0, 0.7);
+    z-index: -1;
     transition: background-color 0.3s ease-in-out;
 }
 
@@ -52,7 +51,7 @@ header.scrolled::before {
 }
 
 header .logo img {
-    max-height: 5rem; 
+    max-height: 5rem;
 }
 
 header .navbar a {
@@ -105,7 +104,7 @@ header .icons i:hover {
 }
 
 /* Button */
-.btn2 {
+.btn2, .btn-admin {
     display: inline-block;
     background: #e50914;
     color: white;
@@ -118,7 +117,7 @@ header .icons i:hover {
     transition: background 0.3s, color 0.3s;
 }
 
-.btn2:hover {
+.btn2:hover, .btn-admin:hover {
     background: white;
     border: #e50914 2px solid;
     color: #e50914;
@@ -195,8 +194,8 @@ header .icons i:hover {
 
     header .navbar {
         position: absolute;
-        top: 100%; 
-        right: 0; 
+        top: 100%;
+        right: 0;
         left: 0;
         background: #111;
         border-top: 0.1rem solid rgba(255, 255, 255, 0.2);
@@ -216,4 +215,47 @@ header .icons i:hover {
         background: #222;
         border-radius: 0.5rem;
     }
+}
+
+/* Dropdown */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown .dropbtn {
+    background: none;
+    color: #fff;
+    font-size: 2rem;
+    border: none;
+    cursor: pointer;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #333;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: #fff;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    font-size: 1.6rem;
+}
+
+.dropdown-content a:hover {
+    background-color: #575757;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown:hover .dropbtn {
+    color: #e50914;
 }
