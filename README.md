@@ -1,20 +1,20 @@
-BlackPool Billiard Website
+BlackPool Billiard Website  
 
-Kelompok 8:
-- Vincent Wijaya 535220064
-- Nathanael Kenneth Lay 535220066
-- Nicholas Eugene Supardi 535220102
+Kelompok 8:  
+- Vincent Wijaya 535220064  
+- Nathanael Kenneth Lay 535220066  
+- Nicholas Eugene Supardi 535220102  
 
-Topik Apps: Website Pemesanan Table untuk Bermain Billiard
+Topik Apps: Website Pemesanan Table untuk Bermain Billiard  
 
 Pembagian Tugas: 
-- Nicholas Eugene Supardi (Ketua): Pembuatan Database User, Booking, dan juga History untuk booking. Membuat UI untuk Log In dan Sign In, Booking Page, dan History Booking Page.
-- Vincent Wijaya: Membuat Shop page, cart page, history untuk shop, fitur admin untuk edit shop dan delete pada shop.
-- Nathanael Kenneth Lay: Membuat UI untuk Admin Dashboard. beserta REST Api untuk melakukan CRUD untuk user dan menampilkan total booking pada Admin Dashboard.
+- Nicholas Eugene Supardi (Ketua): Pembuatan Database User, Booking, dan juga History untuk booking. Membuat UI untuk Log In dan Sign In, Booking Page, dan History Booking Page.  
+- Vincent Wijaya: Membuat Shop page, cart page, history untuk shop, fitur admin untuk edit shop dan delete pada shop.  
+- Nathanael Kenneth Lay: Membuat UI untuk Admin Dashboard. beserta REST Api untuk melakukan CRUD untuk user dan menampilkan total booking pada Admin Dashboard.  
 
-Step Instalasi:
-1. Silahkan meng-clone project Github ini dan masukan ke dalam folder dalam directory C:/XAMPP/htdocs.
-2. setelah project telah di clone buka source-code editor dan edit file .env.example dan ubah di bagian database untuk menyambukannya kedalam pgsql,
+Step Instalasi:  
+1. Silahkan meng-clone project Github ini dan masukan ke dalam folder dalam directory C:/XAMPP/htdocs.  
+2. setelah project telah di clone buka source-code editor dan edit file .env.example dan ubah di bagian database untuk menyambukannya kedalam pgsql,  
    ```bash
    DB_CONNECTION=pgsql
    DB_HOST=localhost
@@ -23,17 +23,17 @@ Step Instalasi:
    DB_USERNAME=postgres (username postgres anda)
    DB_PASSWORD=(password anda)
    ```
-3. setelah mengubah folder .env.example sekarang tinggal copy dan rename dan dijadikan file .env dengan cara memasukan code ini dalam terminal anda
+3. setelah mengubah folder .env.example sekarang tinggal copy dan rename dan dijadikan file .env dengan cara memasukan code ini dalam terminal anda  
    ```bash
    cp .env.example .env
-   ```
-4. step selanjutnya adalah melakukan menginstallasi composer untuk menjalankan project ini.
-   Lakukan code ini dalam terminal di folder project:
+   ```  
+4. step selanjutnya adalah melakukan menginstallasi composer untuk menjalankan project ini.  
+   Lakukan code ini dalam terminal di folder project:  
    ```bash
    composer install
    php artisan storage:link
    ```
-5.setelah melakukan perubahan pada file .env, kita akan membuat database untuk project ini (saya menggunakan pgadmin untuk memasukan databasenya). berikut adalah stepnya:
+5.setelah melakukan perubahan pada file .env, kita akan membuat database untuk project ini (saya menggunakan pgadmin untuk memasukan databasenya). berikut adalah stepnya:  
     - Membuat Database  
       ![Screenshot 2024-06-27 180915](https://github.com/Nicholas-Eugene/blackpool/assets/59018883/db015a92-083e-4685-b457-c7fa59210fc3)  
       ![Screenshot 2024-06-27 180924](https://github.com/Nicholas-Eugene/blackpool/assets/59018883/50b5d7f8-e3ff-4c10-9648-51bb80032a93)  
