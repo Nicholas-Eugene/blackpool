@@ -10,41 +10,47 @@ use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
+    // Menampilkan dashboard admin
     public function index()
     {
         return view('admin.dashboard');
     }
 
+    // Menampilkan daftar semua pengguna
     public function users()
     {
         $users = User::all();
         return view('admin.users', compact('users'));
     }
 
+    // Menampilkan daftar semua pemesanan
     public function bookings()
     {
         $bookings = Booking::all();
         return view('admin.bookings', compact('bookings'));
     }
 
+    // Menampilkan daftar semua makanan dan minuman
     public function foodsAndBeverages()
     {
         $foodsAndBeverages = FoodAndBeverage::all();
         return view('admin.foodsandbeverages', compact('foodsAndBeverages'));
     }
 
+    // Menampilkan daftar semua stick
     public function sticks()
     {
         $sticks = Stick::all();
         return view('admin.sticks', compact('sticks'));
     }
 
-    // Food and Beverage functions
+    // Menampilkan form untuk membuat makanan atau minuman baru
     public function createFoodAndBeverage()
     {
         return view('admin.create_foodandbeverage');
     }
 
+    // Menyimpan makanan atau minuman baru ke database
     public function storeFoodAndBeverage(Request $request)
     {
         $validated = $request->validate([
@@ -56,7 +62,7 @@ class AdminController extends Controller
             'type' => 'required|string|max:255',
         ]);
 
-        // Define the storage path
+        // Menentukan path penyimpanan
         $path = $request->file('mainpic')->storeAs('public/img/fnb', $request->file('mainpic')->getClientOriginalName());
 
         $foodAndBeverage = new FoodAndBeverage;
@@ -68,15 +74,17 @@ class AdminController extends Controller
         $foodAndBeverage->type = $validated['type'];
         $foodAndBeverage->save();
 
-        return redirect()->route('admin.foodsAndBeverages')->with('success', 'Food or Beverage created successfully.');
+        return redirect()->route('admin.foodsAndBeverages')->with('success', 'Makanan atau Minuman berhasil dibuat.');
     }
 
+    // Menampilkan form untuk mengedit makanan atau minuman
     public function editFoodAndBeverage($id)
     {
         $foodAndBeverage = FoodAndBeverage::findOrFail($id);
         return view('admin.edit_foodandbeverage', compact('foodAndBeverage'));
     }
 
+    // Mengupdate makanan atau minuman yang ada di database
     public function updateFoodAndBeverage(Request $request, $id)
     {
         $foodAndBeverage = FoodAndBeverage::findOrFail($id);
@@ -91,7 +99,7 @@ class AdminController extends Controller
         ]);
 
         if ($request->hasFile('mainpic')) {
-            // Define the storage path
+            // Menentukan path penyimpanan
             $path = $request->file('mainpic')->storeAs('public/img/fnb', $request->file('mainpic')->getClientOriginalName());
             $foodAndBeverage->mainpic = 'storage/img/fnb/' . $request->file('mainpic')->getClientOriginalName();
         }
@@ -103,23 +111,25 @@ class AdminController extends Controller
         $foodAndBeverage->type = $validated['type'];
         $foodAndBeverage->save();
 
-        return redirect()->route('admin.foodsAndBeverages')->with('success', 'Food or Beverage updated successfully.');
+        return redirect()->route('admin.foodsAndBeverages')->with('success', 'Makanan atau Minuman berhasil diupdate.');
     }
 
+    // Menghapus makanan atau minuman dari database
     public function deleteFoodAndBeverage($id)
     {
         $foodAndBeverage = FoodAndBeverage::findOrFail($id);
         $foodAndBeverage->delete();
 
-        return redirect()->route('admin.foodsAndBeverages')->with('success', 'Food or Beverage deleted successfully.');
+        return redirect()->route('admin.foodsAndBeverages')->with('success', 'Makanan atau Minuman berhasil dihapus.');
     }
 
-    // Stick functions
+    // Menampilkan form untuk membuat stick baru
     public function createStick()
     {
         return view('admin.create_stick');
     }
 
+    // Menyimpan stick baru ke database
     public function storeStick(Request $request)
     {
         $validated = $request->validate([
@@ -133,7 +143,7 @@ class AdminController extends Controller
             'pic4' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
-        // Define the storage paths
+        // Menentukan path penyimpanan
         $mainPicPath = $request->file('mainpic')->storeAs('public/img/stick', $request->file('mainpic')->getClientOriginalName());
 
         $stick = new Stick;
@@ -156,15 +166,17 @@ class AdminController extends Controller
         }
         $stick->save();
 
-        return redirect()->route('admin.sticks')->with('success', 'Stick created successfully.');
+        return redirect()->route('admin.sticks')->with('success', 'Stick berhasil dibuat.');
     }
 
+    // Menampilkan form untuk mengedit stick
     public function editStick($id)
     {
         $stick = Stick::findOrFail($id);
         return view('admin.edit_stick', compact('stick'));
     }
 
+    // Mengupdate stick yang ada di database
     public function updateStick(Request $request, $id)
     {
         $stick = Stick::findOrFail($id);
@@ -202,34 +214,37 @@ class AdminController extends Controller
         $stick->stock = $validated['stock'];
         $stick->save();
 
-        return redirect()->route('admin.sticks')->with('success', 'Stick updated successfully.');
+        return redirect()->route('admin.sticks')->with('success', 'Stick berhasil diupdate.');
     }
 
+    // Menghapus stick dari database
     public function deleteStick($id)
     {
         $stick = Stick::findOrFail($id);
         $stick->delete();
 
-        return redirect()->route('admin.sticks')->with('success', 'Stick deleted successfully.');
+        return redirect()->route('admin.sticks')->with('success', 'Stick berhasil dihapus.');
     }
 
+    // Menampilkan form untuk mengedit pengguna
     public function editUser($id)
     {
         $user = User::findOrFail($id);
         return view('admin.edit_user', compact('user'));
     }
-    
+
+    // Mengupdate pengguna yang ada di database
     public function updateUser(Request $request, $id)
     {
         $user = User::findOrFail($id);
-    
+
         $validated = $request->validate([
             'username' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users,email,' . $id,
             'password' => 'nullable|string|min:8|confirmed',
             'is_admin' => 'required|boolean',
         ]);
-    
+
         $user->username = $validated['username'];
         $user->email = $validated['email'];
         if (!empty($validated['password'])) {
@@ -237,7 +252,7 @@ class AdminController extends Controller
         }
         $user->is_admin = $validated['is_admin'];
         $user->save();
-    
-        return redirect()->route('admin.users')->with('success', 'User updated successfully.');
+
+        return redirect()->route('admin.users')->with('success', 'Pengguna berhasil diupdate.');
     }
-}    
+}

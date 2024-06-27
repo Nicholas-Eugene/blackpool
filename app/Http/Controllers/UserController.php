@@ -12,37 +12,39 @@ use Illuminate\Support\MessageBag;
 
 class UserController extends Controller
 {
-
+    // Fungsi untuk menampilkan halaman login
     public function showLoginPage(){
         return view('login');
     }
 
+    // Fungsi untuk menampilkan detail riwayat transaksi
     public function showHistoryDetailPage($historyIds)
     {
-    $ids = explode(',', $historyIds);
-    $historyItems = History::whereIn('id', $ids)
-        ->with(['stick', 'foodAndBeverage'])
-        ->get();
+        $ids = explode(',', $historyIds);
+        $historyItems = History::whereIn('id', $ids)
+            ->with(['stick', 'foodAndBeverage'])
+            ->get();
 
-    $totalPrice = $historyItems->sum('totalprice');
-    $totalPriceWithAdmin = $totalPrice + 10000; // Adjust admin fee if necessary
+        $totalPrice = $historyItems->sum('totalprice');
+        $totalPriceWithAdmin = $totalPrice + 10000; // Tambahan biaya admin jika diperlukan
 
-    return view('historydetail', compact('historyItems', 'totalPrice', 'totalPriceWithAdmin'));
+        return view('historydetail', compact('historyItems', 'totalPrice', 'totalPriceWithAdmin'));
     }
 
+    // Fungsi untuk menampilkan halaman riwayat transaksi
     public function showHistoryPage()
-{
-    $histories = History::where('user_id', Auth::id())
-        ->with(['stick', 'foodAndBeverage'])
-        ->get()
-        ->groupBy(function ($item) {
-            return $item->date . ' ' . $item->time;
-        });
+    {
+        $histories = History::where('user_id', Auth::id())
+            ->with(['stick', 'foodAndBeverage'])
+            ->get()
+            ->groupBy(function ($item) {
+                return $item->date . ' ' . $item->time;
+            });
 
-    return view('history', compact('histories'));
-}
+        return view('history', compact('histories'));
+    }
 
-   
+    // Fungsi untuk menangani proses login
     public function signin(Request $request){
         $this->validate($request, [
             'username' => 'required',
@@ -56,6 +58,7 @@ class UserController extends Controller
 
         $remember = $request->has('rememberme');
 
+        // Menyimpan cookie jika 'remember me' dipilih
         if($remember){
             Cookie::queue('rememberedusername', $request->username, 60*24*7);
             Cookie::queue('rememberedpassword', $request->password, 60*24*7);
@@ -64,6 +67,7 @@ class UserController extends Controller
             Cookie::queue(Cookie::forget('rememberedpassword'));
         }
 
+        // Mengecek kredensial pengguna
         if (Auth::attempt($userCredential, $remember)) {
             return redirect('/');
         }else{
@@ -77,6 +81,7 @@ class UserController extends Controller
         }
     }
 
+    // Fungsi untuk menangani proses pendaftaran
     public function signup(Request $request){
         $this->validate($request, [
             'usernameRegist' => 'required',
@@ -102,24 +107,29 @@ class UserController extends Controller
             'password' => $request['txtPassword'],
         ];
 
+        // Login otomatis setelah pendaftaran
         if (Auth::attempt($userCredential)) {
             return redirect('/');
         }
     }
 
+    // Fungsi untuk menangani proses logout
     public function signout(){
         Auth::logout();
         return redirect('/');
     }
 
+    // Fungsi untuk menampilkan halaman profil
     public function showProfilePage(){
         return view('profile');
     }
 
+    // Fungsi untuk menampilkan halaman utama
     public function showhomePage(){
         return view('home');
     }
 
+    // Fungsi untuk memperbarui informasi pengguna
     public function updateUser(Request $request, $id){
         $this->validate($request, [
             'username' => 'required',
@@ -133,7 +143,7 @@ class UserController extends Controller
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
     
-        // Handle profile picture upload
+        // Mengelola upload foto profil
         if ($request->hasFile('photo')) {
             $file = $request->file('photo');
             $name = time() . '_' . $file->getClientOriginalName();
@@ -146,9 +156,8 @@ class UserController extends Controller
     
         return redirect()->back()->with('success', 'Profile updated successfully.');
     }
-    
-    
 
+    // Fungsi untuk menampilkan halaman 'Tentang Kami'
     public function showAboutUsPage(){
         return view('aboutUs');
     }
