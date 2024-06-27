@@ -41,7 +41,7 @@ Step Instalasi:
       ![Screenshot 2024-06-27 180932](https://github.com/Nicholas-Eugene/blackpool/assets/59018883/33820d40-2d76-48e6-aa53-b3ea3b4ad79a)  
       ![Screenshot 2024-06-27 180953](https://github.com/Nicholas-Eugene/blackpool/assets/59018883/b8a67bae-6bfb-4b47-8c91-705d56a5a6d1)  
     - Jika anda tidak mau menggunakan file sql untuk pre-loading data maka anda bisa menggunakan step command ini untuk memasukan datanya  
-      ```bash
+      ```
       php artisan migrate:fresh --seed
       ```  
 6. Website pemesanan Billiard Blackpool siap dijalankan. untuk meng-akses sebagai user anda bisa menggunakan account bawaan:  
