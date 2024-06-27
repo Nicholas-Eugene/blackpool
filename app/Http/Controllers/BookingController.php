@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\HistoryBooking;
-use App\Models\Booking; // Pastikan ini sudah diimpor
+use App\Models\Booking;
 use App\Models\CartBooking;
 use App\Models\Table;
 use Illuminate\Http\Request;
@@ -11,34 +11,42 @@ use Illuminate\Support\Facades\Auth;
 
 class BookingController extends Controller
 {
+    // Konstruktor untuk memastikan semua metode dalam controller ini membutuhkan otentikasi
     public function __construct()
     {
         $this->middleware('auth');
     }
 
+    // Metode untuk menampilkan halaman booking
     public function index()
     {
-        $tables = Table::all(); // Retrieve all tables or adjust the query as needed
+        // Ambil semua meja
+        $tables = Table::all();
 
-        // Get bookings for each table
+        // Dapatkan booking untuk setiap meja
         foreach ($tables as $table) {
             $bookings = Booking::where('table_id', $table->id)
                 ->whereDate('date', now()->toDateString())
                 ->get(['time']);
 
+            // Gabungkan waktu yang sudah dibooking
             $bookedTimes = [];
             foreach ($bookings as $booking) {
                 $bookedTimes = array_merge($bookedTimes, json_decode($booking->time, true));
             }
 
+            // Simpan waktu yang sudah dibooking di properti tabel
             $table->booked_times = $bookedTimes;
         }
 
+        // Kembalikan tampilan booking dengan data meja
         return view('booking', compact('tables'));
     }
 
+    // Metode untuk menyimpan booking
     public function store(Request $request)
     {
+        // Validasi data input
         $validatedData = $request->validate([
             'start_times' => 'required|array',
             'start_times.*' => 'required|string',
@@ -46,22 +54,25 @@ class BookingController extends Controller
             'totalprice' => 'required|numeric',
         ]);
 
+        // Pisahkan ID meja dan harga total dari data yang divalidasi
         $tableIds = explode(',', $validatedData['table_ids']);
         $totalPrice = $validatedData['totalprice'];
 
         $cart = null;
 
+        // Buat CartBooking untuk setiap meja
         foreach ($tableIds as $tableId) {
             $cart = CartBooking::create([
                 'user_id' => Auth::id(),
                 'table_id' => $tableId,
                 'date' => now()->toDateString(),
-                'time' => json_encode($validatedData['start_times']), // Store the times as a JSON string
+                'time' => json_encode($validatedData['start_times']), // Simpan waktu sebagai string JSON
                 'totalprice' => $totalPrice,
                 'status' => 'pending',
             ]);
         }
 
+        // Jika CartBooking berhasil dibuat, arahkan ke halaman pembayaran
         if ($cart) {
             return redirect()->route('payment.page', ['cartId' => $cart->id]);
         } else {
@@ -69,12 +80,13 @@ class BookingController extends Controller
         }
     }
 
+    // Metode untuk mengkonfirmasi pesanan
     public function confirmOrder(Request $request, $cartId)
     {
         $cart = CartBooking::findOrFail($cartId);
 
         if ($cart && $cart->status == 'pending') {
-            // Check if the selected time slots are available
+            // Periksa ketersediaan slot waktu yang dipilih
             $selectedTimes = json_decode($cart->time);
             foreach ($selectedTimes as $selectedTime) {
                 $existingBooking = Booking::where('table_id', $cart->table_id)
@@ -87,8 +99,8 @@ class BookingController extends Controller
                 }
             }
 
-             // If all selected times are available, create booking
-             $booking = Booking::create([
+            // Jika semua slot waktu tersedia, buat booking
+            $booking = Booking::create([
                 'user_id' => Auth::id(),
                 'table_id' => $cart->table_id,
                 'date' => $cart->date,
@@ -98,40 +110,45 @@ class BookingController extends Controller
             ]);
 
             if ($booking) {
-                // Create history record
+                // Buat riwayat booking
                 HistoryBooking::create([
                     'table_id' => $cart->table_id,
                     'user_id' => Auth::id(),
-                    'booking_start' => $cart->date . ' ' . json_decode($cart->time)[0], // assuming start time is the first in the array
-                    'time' => $cart->time, // Store the times as a JSON string
+                    'booking_start' => $cart->date . ' ' . json_decode($cart->time)[0], // Menganggap waktu mulai adalah yang pertama dalam array
+                    'time' => $cart->time, // Simpan waktu sebagai string JSON
                     'total_price' => $cart->totalprice,
                     'payment_method' => $request->input('paymentmethod'),
                 ]);
 
+                // Hapus cart setelah konfirmasi
                 $cart->delete();
                 return redirect()->route('booking.index')->with('success', 'Booking confirmed and added to history.');
             }
         }
-        
+
+        // Hapus cart jika konfirmasi gagal
         $cart->delete();
         return redirect()->route('payment.page', ['cartId' => $cartId])->withErrors('Failed to confirm order.');
     }
 
+    // Metode untuk mendapatkan booking berdasarkan ID meja
     public function getTableBookings($tableId)
     {
         $bookings = Booking::where('table_id', $tableId)
             ->whereDate('date', now()->toDateString())
             ->get(['time']);
-        
-        // Make sure the 'time' field contains actual times in your database
+
+        // Gabungkan waktu yang sudah dibooking
         $bookedTimes = [];
         foreach ($bookings as $booking) {
             $bookedTimes = array_merge($bookedTimes, json_decode($booking->time, true));
         }
 
+        // Kembalikan data booking dalam format JSON
         return response()->json(['bookings' => $bookedTimes]);
     }
 
+    // Metode untuk menampilkan halaman pembayaran
     public function showPaymentPage($cartId)
     {
         $cart = CartBooking::findOrFail($cartId);
