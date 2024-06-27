@@ -148,6 +148,7 @@ form {
     height: 49px;
     border-radius: 49px;
     color: #fff;
+    font-size: 15px;
     text-transform: uppercase;
     font-weight: 600;
     margin: 10px 0;
@@ -166,11 +167,17 @@ form {
 
 #btnLogout {
     background-color: rgb(214, 69, 69);
+    text-size-adjust: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 #btnLogout:hover {
     background-color: rgb(195, 60, 60);
 }
+
+
 
 @media (min-width: 992px) {
     .card {
