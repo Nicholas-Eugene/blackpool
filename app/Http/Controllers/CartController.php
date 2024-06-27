@@ -20,13 +20,13 @@ class CartController extends Controller
 
     if ($productType === 'stick') {
         $product = Stick::find($productId);
-        if (!$product) {
-            return redirect()->back()->withErrors(['Invalid stick ID']);
+        if (!$product || $product->stock <= 0) {
+            return redirect()->back()->withErrors(['Invalid or out of stock stick ID']);
         }
     } elseif ($productType === 'food') {
         $product = FoodAndBeverage::find($productId);
-        if (!$product) {
-            return redirect()->back()->withErrors(['Invalid food or beverage ID']);
+        if (!$product || $product->stock <= 0) {
+            return redirect()->back()->withErrors(['Invalid or out of stock food or beverage ID']);
         }
     }
 
