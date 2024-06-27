@@ -36,7 +36,7 @@
 
             <div class="buttons">
                 <input type="submit" value="Update" class="btn solid">
-                <a href="/signOut"><input value="Log Out" id="btnLogout" class="btn solid"></a>
+                <a href="/signOut" class="btn solid" id="btnLogout">Log Out</a>
             </div>
         </form>
     </div>
