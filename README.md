@@ -43,7 +43,7 @@ Step Instalasi:
     - Jika anda tidak mau menggunakan file sql untuk pre-loading data maka anda bisa menggunakan step command ini untuk memasukan datanya  
       ```bash
       php artisan migrate:fresh --seed
-      ```
+      ```  
 6. Website pemesanan Billiard Blackpool siap dijalankan. untuk meng-akses sebagai user anda bisa menggunakan account bawaan:  
     Akun User  
     - username: user  
